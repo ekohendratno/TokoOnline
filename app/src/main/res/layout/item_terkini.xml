@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="210dp"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="5dp">
+    android:layout_marginStart="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
 
     <LinearLayout
         android:id="@+id/layout"
@@ -13,18 +16,44 @@
         <ImageView
             android:id="@+id/imageview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-
-            android:src="@drawable/a" />
+            android:src="@drawable/baju1" />
 
         <TextView
             android:id="@+id/txtview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Lorem ipsum katok kolor" />
+            android:padding="6dp"
+            android:maxLength="45"
+            android:text="Atasan Batik Kombinasi WP 132 Navi MM Baju Blouse Kerja Pria Modern" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/harga"
+                android:layout_toLeftOf="@+id/terjual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="6dp"
+                android:textColor="#FF5722"
+                android:text="Rp 50.000" />
+
+            <TextView
+                android:id="@+id/terjual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="6dp"
+                android:text="10RB+ terjual"
+                android:textSize="9dp" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

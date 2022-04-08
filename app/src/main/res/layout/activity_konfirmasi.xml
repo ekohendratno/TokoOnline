@@ -52,7 +52,7 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_arrow_back"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

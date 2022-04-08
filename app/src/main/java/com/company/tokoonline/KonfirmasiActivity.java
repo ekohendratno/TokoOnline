@@ -10,5 +10,17 @@ public class KonfirmasiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konfirmasi);
+
+        findViewById(R.id.actionBack).setOnClickListener(v -> {
+
+            onBackPressed();
+
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

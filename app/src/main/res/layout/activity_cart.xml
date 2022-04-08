@@ -52,7 +52,7 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_arrow_back"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -114,9 +114,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <include layout="@layout/layout_empty"/>
+                    <include layout="@layout/layout_empty" android:visibility="gone"/>
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycle_view"
+                        android:id="@+id/recyle_view0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -135,10 +135,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#ffffff"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
+            android:orientation="vertical">
+            <View
+                style="@style/divider"
+                android:layout_height="1dip"
+                android:backgroundTint="#7A7A7A" />
 
             <RelativeLayout
+                android:padding="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -147,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:orientation="vertical">
 
 
@@ -159,13 +164,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Rp 50.000"
-                        android:textColor="#4CAF50" />
+                        android:textColor="#F44336" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/cart_btn_layout"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -174,7 +180,7 @@
                         android:id="@+id/actionBuy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Beli"
+                        android:text="Buy"
                         app:backgroundTint="#4CAF50" />
 
 

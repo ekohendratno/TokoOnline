@@ -20,6 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
             Intent myIntent = new Intent(v.getContext(), MainActivity.class);
             myIntent.putExtra("key", "1"); //Optional parameters
             v.getContext().startActivity(myIntent);
+            finish();
 
         });
 
@@ -31,5 +32,11 @@ public class PaymentActivity extends AppCompatActivity {
             v.getContext().startActivity(myIntent);
 
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

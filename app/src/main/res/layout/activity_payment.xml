@@ -52,7 +52,7 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_arrow_back"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -301,20 +301,12 @@
             android:padding="@dimen/activity_horizontal_margin">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/actionBack"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:text="Kembali" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/actionKonfirmasi"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="Konfirmasi"
+                android:text="I Want to Confirm"
                 app:backgroundTint="#FF5722" />
 
         </LinearLayout>
