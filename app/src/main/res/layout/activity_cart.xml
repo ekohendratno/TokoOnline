@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="#ffffff">
+
+
+        <LinearLayout
+            android:id="@+id/main_row"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/progress1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"/>
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_refresh"
+                    app:tint="#C4C4C4" />
+
+                <ImageView
+                    android:id="@+id/actBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_arrow_back"
+                    app:tint="#C4C4C4" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Cart"
+                    android:textColor="#FF5722"
+                    />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <View
+            android:id="@+id/root_view1"
+            style="@style/divider"
+            android:backgroundTint="#ddd" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_above="@+id/cart_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/c_d"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/layout_empty"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+        <View
+            style="@style/divider"
+            android:backgroundTint="#ddd" />
+
+        <LinearLayout
+            android:id="@+id/cart_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_toLeftOf="@+id/cart_btn_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="vertical">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total Harga" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rp 50.000"
+                        android:textColor="#4CAF50" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cart_btn_layout"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/actionBuy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Beli"
+                        app:backgroundTint="#4CAF50" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

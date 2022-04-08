@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="translate_fields_horizontal_margin">20.0dip</dimen>
+    <dimen name="translate_fields_padding">10.0dip</dimen>
+    <dimen name="translate_fields_padding2">10.0dip</dimen>
+    <dimen name="translate_fields_padding_text">20.0dip</dimen>
+    <dimen name="translate_fields_vertical_margin">8.0dip</dimen>
+    <dimen name="translate_fields_vertical_margin_buttom">30.0dip</dimen>
+
+    <dimen name="list_horizontal_margin">14.0dip</dimen>
+    <dimen name="list_vertical_margin">14.0dip</dimen>
+
+    <dimen name="peek_height">105dp</dimen>
+    <dimen name="peek_height_none">55dp</dimen>
+
+    <dimen name="peek_height120">120dp</dimen>
+    <dimen name="peek_height80">70dp</dimen>
+</resources>
