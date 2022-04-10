@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="sans-serif-light"
-                    android:text="Periksa"
+                    android:text="Rincian Pesanan"
                     android:textColor="#FF5722" />
 
 
@@ -93,8 +93,8 @@
             android:backgroundTint="#ddd" />
 
         <androidx.core.widget.NestedScrollView
-            android:scrollbars="vertical"
             android:layout_above="@+id/cart_layout"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -120,10 +120,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-
                     <TextView
                         android:id="@+id/alamat_pengiriman"
-                        android:text="Jl. Jendral sudirman RT 003 RW 001 Kec. Candipuro Kab. Lampung Selatan, Indonesia, 35356"
+                        android:text="EKO HENDRATNO | 08576900000\nJl. Jendral sudirman RT 003 RW 001 Kec. Candipuro Kab. Lampung Selatan, Indonesia, 35356"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -142,7 +141,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:textColor="#777676"
                         android:text="Daftar produk yang dibeli :"
                         android:padding="@dimen/activity_horizontal_margin"
                         android:layout_width="match_parent"
@@ -153,152 +151,170 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:background="#ffffff"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <TextView
-                        android:textColor="#777676"
-                        android:text="Pengiriman :"
-                        android:paddingBottom="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <RelativeLayout
-                        android:layout_marginTop="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Regular" />
-
-                        <TextView
-                            android:id="@+id/ongkir"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Rp 0" />
-                    </RelativeLayout>
-
-
-
-                </LinearLayout>
-
                 <View
                     style="@style/divider"
                     android:backgroundTint="#ddd" />
+
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
                     android:orientation="vertical"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_marginTop="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/harga_subtotal_produk"
-                            android:text="Subtotal produk"
-                            android:textColor="#777676" />
-
-                        <TextView
-                            android:id="@+id/harga_subtotal_produk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Rp 0"
-                            android:textColor="#777676" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_marginTop="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:textColor="#777676"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/harga_subtotal_pengiriman"
-                            android:text="Subtotal pengiriman" />
-
-                        <TextView
-                            android:id="@+id/harga_subtotal_pengiriman"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Rp 0"
-                            android:textColor="#777676" />
-
-                    </RelativeLayout>
+                    android:padding="@dimen/activity_horizontal_margin">
 
 
                     <RelativeLayout
-                        android:layout_marginTop="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/harga_total_pembayaran"
-                            android:text="Total Pembayaran"
-                            android:textSize="18dp" />
-
-                        <TextView
-                            android:id="@+id/harga_total_pembayaran"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="Rp 0"
-                            android:textColor="#FF5722"
-                            android:textSize="18dp" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-
-
-                <View
-                    style="@style/divider"
-                    android:backgroundTint="#ddd" />
-                <LinearLayout
-                    android:background="#ffffff"
-                    android:orientation="vertical"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/harga_subtotal_produk"
-                        android:text="Catatan"
-                        android:textColor="#777676" />
+                        android:layout_marginTop="4dp">
 
-                    <EditText
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Pesanan"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/nota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="#2022040806090001" />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/waktu_pemesanan"
+                            android:text="Waktu Pemesanan"
+                            android:textColor="#777676" />
+
+                        <TextView
+                            android:id="@+id/waktu_pemesanan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="#777676" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/waktu_pembayaran"
+                            android:text="Waktu Pembayaran"
+                            android:textColor="#777676" />
+
+                        <TextView
+                            android:id="@+id/waktu_pembayaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="#777676" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/waktu_pengiriman"
+                            android:text="Waktu Pengiriman"
+                            android:textColor="#777676" />
+
+                        <TextView
+                            android:id="@+id/waktu_pengiriman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="#777676" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/waktu_pesanan_selesai"
+                            android:text="Waktu Pesanan Selesai"
+                            android:textColor="#777676" />
+
+                        <TextView
+                            android:id="@+id/waktu_pesanan_selesai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="#777676" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Catatan" />
+
+                    </RelativeLayout>
+
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/catatan"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="#777676" />
 
                 </LinearLayout>
 
@@ -327,43 +343,25 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_toLeftOf="@+id/cart_btn_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Total Pembayaran" />
-
-                    <TextView
-                        android:id="@+id/harga_total_pembayaran2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Rp 0"
-                        android:textSize="18dp"
-                        android:textColor="#FF5722" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/cart_btn_layout"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/actionBatal"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="Batalkan"
+                        app:backgroundTint="#616060" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/actionCheckout"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Buat Pesanan"
+                        android:text="Bayar"
                         app:backgroundTint="#FF5722" />
 
 

@@ -122,7 +122,11 @@
 
 
                     <TextView
-                        android:id="@+id/alamat_pengiriman"
+                        android:text="EKO HENDRATNO | 08576900000"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
                         android:text="Jl. Jendral sudirman RT 003 RW 001 Kec. Candipuro Kab. Lampung Selatan, Indonesia, 35356"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -149,7 +153,10 @@
                         android:layout_height="wrap_content"/>
 
 
-                    <include layout="@layout/item_checkout"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_view0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -275,32 +282,6 @@
                 </LinearLayout>
 
 
-
-                <View
-                    style="@style/divider"
-                    android:backgroundTint="#ddd" />
-                <LinearLayout
-                    android:background="#ffffff"
-                    android:orientation="vertical"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/harga_subtotal_produk"
-                        android:text="Catatan"
-                        android:textColor="#777676" />
-
-                    <EditText
-                        android:id="@+id/catatan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
 
 
             </LinearLayout>

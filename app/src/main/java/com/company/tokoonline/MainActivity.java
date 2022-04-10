@@ -20,11 +20,13 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
+import com.company.tokoonline.adapters.SliderImageAdapter;
 import com.company.tokoonline.adapters.TerkiniAdapter;
 import com.company.tokoonline.adapters.KategoriAdapter;
 import com.company.tokoonline.adapters.RekomendasiAdapter;
 import com.company.tokoonline.config.AppController;
 import com.company.tokoonline.config.Config;
+import com.company.tokoonline.config.PicassoImageLoadingService;
 import com.company.tokoonline.models.BarangItem;
 import com.company.tokoonline.models.KategoriItem;
 import com.company.tokoonline.models.SlideItem;
@@ -57,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private RekomendasiAdapter rekomendasiAdapter;
 
     private Context context;
-    private RequestQueue requestQueue;
     private SharedPreferences sharedpreferences;
     private SwipeRefreshLayout swipeRefresh;
 
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         context = MainActivity.this;
-        requestQueue = AppController.getInstance().getRequestQueue();
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
 
@@ -79,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
             v.getContext().startActivity(myIntent);
         });
 
+        findViewById(R.id.akun).setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), AkunActivity.class);
+            myIntent.putExtra("key", "1"); //Optional parameters
+            v.getContext().startActivity(myIntent);
+
+        });
 
         findViewById(R.id.cart).setOnClickListener(v -> {
 
@@ -87,24 +94,26 @@ public class MainActivity extends AppCompatActivity {
             v.getContext().startActivity(myIntent);
         });
 
+        findViewById(R.id.cari).setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), PencarianActivity.class);
+            v.getContext().startActivity(myIntent);
+
+        });
+
         findViewById(R.id.pesan).setOnClickListener(v -> {
 
         });
 
 
         slider = findViewById(R.id.banner);
-        slider.init(new PicassoImageLoadingService(this));
-
-
-
-
-
-
-
-
         recyleviewTerkini = findViewById(R.id.recyle_view0);
         recyleviewKategori = findViewById(R.id.recyle_view1);
         recyleviewRekomendasi = findViewById(R.id.recyle_view2);
+
+
+
+        slider.init(new PicassoImageLoadingService(this));
 
 
         new getDataHome().execute();
@@ -118,82 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public class SliderImageAdapter extends SliderAdapter {
-
-        final List<SlideItem> sliders;
-
-        public SliderImageAdapter(Context context, List<SlideItem> sliders) {
-            this.sliders = sliders;
-        }
-
-        @Override
-        public int getItemCount() {
-            return sliders.size();
-        }
-
-        @Override
-        public void onBindImageSlide(int position, ImageSlideViewHolder viewHolder) {
-            SlideItem slideItem = sliders.get(position);
-            if(!TextUtils.isEmpty(slideItem.image_url))
-                viewHolder.bindImageSlide(slideItem.image_url);
-
-        }
-    }
-
-    public class PicassoImageLoadingService implements ImageLoadingService {
-        public Context context;
-
-        public PicassoImageLoadingService(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void loadImage(String url, ImageView imageView) {
-            if(!TextUtils.isEmpty(url)) {
-
-                Picasso.with(context)
-                        .load(url)
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(imageView, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError() {
-                                //Try again online if cache failed
-                                Picasso.with(context)
-                                        .load(url)
-                                        .into(imageView, new Callback() {
-                                            @Override
-                                            public void onSuccess() {
-
-                                            }
-
-                                            @Override
-                                            public void onError() {
-                                                Log.v("Picasso","Could not fetch image");
-                                            }
-                                        });
-                            }
-                        });
-
-            }
-        }
-
-        @Override
-        public void loadImage(int resource, ImageView imageView) {
-            //Picasso.with(context).load(resource).into(imageView);
-        }
-
-        @Override
-        public void loadImage(String url, int placeHolder, int errorDrawable, ImageView imageView) {
-            //if(!TextUtils.isEmpty(url))
-            //Picasso.with(context).load(url).placeholder(placeHolder).error(errorDrawable).into(imageView);
-        }
-    }
 
 
 
@@ -262,10 +195,11 @@ public class MainActivity extends AppCompatActivity {
                                         terkini.getString("barang_kategori"),
                                         terkini.getString("barang_variasi"),
                                         terkini.getString("barang_ukuran"),
-                                        terkini.getString("barang_berat"),
-                                        terkini.getString("barang_stok"),
-                                        terkini.getString("barang_harga"),
-                                        terkini.getString("barang_diskon"),
+                                        terkini.getInt("barang_berat"),
+                                        terkini.getInt("barang_stok"),
+                                        terkini.getInt("barang_harga"),
+                                        terkini.getInt("barang_diskon"),
+                                        terkini.getInt("barang_terjual"),
                                         terkini.getString("barang_gambar"),
                                         terkini.getString("barang_tanggal"),
                                         terkini.getString("barang_tanggal_diubah")
@@ -309,10 +243,11 @@ public class MainActivity extends AppCompatActivity {
                                         rekomendasi.getString("barang_kategori"),
                                         rekomendasi.getString("barang_variasi"),
                                         rekomendasi.getString("barang_ukuran"),
-                                        rekomendasi.getString("barang_berat"),
-                                        rekomendasi.getString("barang_stok"),
-                                        rekomendasi.getString("barang_harga"),
-                                        rekomendasi.getString("barang_diskon"),
+                                        rekomendasi.getInt("barang_berat"),
+                                        rekomendasi.getInt("barang_stok"),
+                                        rekomendasi.getInt("barang_harga"),
+                                        rekomendasi.getInt("barang_diskon"),
+                                        rekomendasi.getInt("barang_terjual"),
                                         rekomendasi.getString("barang_gambar"),
                                         rekomendasi.getString("barang_tanggal"),
                                         rekomendasi.getString("barang_tanggal_diubah")

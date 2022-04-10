@@ -16,22 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/id"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin" />
-
             <ImageView
-                android:layout_toRightOf="@+id/id"
                 android:id="@+id/imageview"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_marginLeft="8dp"
+                android:adjustViewBounds="true"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:src="@drawable/baju1" />
 
             <LinearLayout
@@ -48,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:padding="6dp"
                     android:maxLength="35"
-                    android:text="Atasan Batik Kombinasi WP 132 Navi MM Baju Blouse Kerja Pria Modern" />
+                    android:text="-" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -61,8 +53,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/qty_lyt"
                         android:padding="6dp"
-                        android:text="Rp 50.000"
-                        android:textColor="#FF5722" />
+                        android:text="Rp 0"
+                        android:textColor="#787878" />
 
 
                     <LinearLayout
@@ -74,35 +66,13 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/action_jumlah_beli_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:background="?selectableItemBackground"
-                            app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
-
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/edit_jumlah_beli"
+                        <TextView
+                            android:id="@+id/beli"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/edittext_style1"
-                            android:inputType="number"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:text="0"
-                            android:textSize="12dp"
-                            android:textAlignment="center" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/action_jumlah_beli_plus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:background="?selectableItemBackground"
-                            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+                            android:textColor="#787878"
+                            android:gravity="right"
+                            android:text="x0" />
 
                     </LinearLayout>
 

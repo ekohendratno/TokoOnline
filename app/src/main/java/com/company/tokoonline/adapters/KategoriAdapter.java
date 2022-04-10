@@ -2,6 +2,7 @@ package com.company.tokoonline.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.company.tokoonline.DetailActivity;
+import com.company.tokoonline.KategoriActivity;
 import com.company.tokoonline.R;
 import com.company.tokoonline.models.KategoriItem;
 import com.squareup.picasso.NetworkPolicy;
@@ -45,11 +48,14 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.ViewHo
         Picasso.with(activity).load( kategoriItem.kategori_gambar ).into( viewHolder.imageView );
         viewHolder.txtview.setText( kategoriItem.kategori_judul );
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(v.getContext(), KategoriActivity.class);
+                myIntent.putExtra("key", kategoriItem.kategori_judul); //Optional parameters
+                v.getContext().startActivity(myIntent);
+
             }
         });
     }

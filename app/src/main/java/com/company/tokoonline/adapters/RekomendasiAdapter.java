@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.company.tokoonline.DetailActivity;
 import com.company.tokoonline.R;
+import com.company.tokoonline.config.Config;
 import com.company.tokoonline.models.BarangItem;
 import com.squareup.picasso.Picasso;
 
@@ -45,15 +46,20 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
     public void onBindViewHolder(RekomendasiAdapter.ViewHolder viewHolder, int position) {
         BarangItem kategoriItem = barangRekomendasiItemList.get(position);
 
-        if(TextUtils.isEmpty(kategoriItem.barang_diskon)){
-            viewHolder.diskon_lyt.setVisibility(View.GONE);
+        viewHolder.diskon.setText( kategoriItem.barang_diskon +"%" );
+        viewHolder.diskon_lyt.setVisibility(View.GONE);
+        if( kategoriItem.barang_diskon > 0){
+            viewHolder.diskon_lyt.setVisibility(View.VISIBLE);
         }
+
+        viewHolder.harga.setText( Config.formatRupiah( kategoriItem.barang_harga ) );
+        viewHolder.terjual.setText( kategoriItem.barang_terjual + " terjual" );
 
         Picasso.with(activity).load( kategoriItem.barang_gambar ).into( viewHolder.imageView );
         viewHolder.txtview.setText( kategoriItem.barang_judul );
 
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -80,6 +86,9 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
         private ImageView imageView;
         private TextView txtview;
         private LinearLayout diskon_lyt;
+        private TextView diskon;
+        private TextView harga;
+        private TextView terjual;
 
 
         public ViewHolder(View view) {
@@ -88,6 +97,9 @@ public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.
             txtview = view.findViewById(R.id.txtview);
             linearLayout = view.findViewById(R.id.layout);
             diskon_lyt = view.findViewById(R.id.diskon_lyt);
+            diskon = view.findViewById(R.id.tv_diskon);
+            harga = view.findViewById(R.id.harga);
+            terjual = view.findViewById(R.id.terjual);
         }
     }
 }

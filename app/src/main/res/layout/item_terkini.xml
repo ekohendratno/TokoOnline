@@ -2,58 +2,90 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
     android:layout_marginStart="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp">
 
-    <LinearLayout
-        android:id="@+id/layout"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:src="@drawable/baju1" />
-
-        <TextView
-            android:id="@+id/txtview"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:maxLength="45"
-            android:text="Atasan Batik Kombinasi WP 132 Navi MM Baju Blouse Kerja Pria Modern" />
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/baju1" />
 
             <TextView
-                android:id="@+id/harga"
-                android:layout_toLeftOf="@+id/terjual"
+                android:id="@+id/txtview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:padding="6dp"
-                android:textColor="#FF5722"
-                android:text="Rp 50.000" />
+                android:maxLength="45"
+                android:text="Atasan Batik Kombinasi WP 132 Navi MM Baju Blouse Kerja Pria Modern" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/harga"
+                    android:layout_toLeftOf="@+id/terjual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:textColor="#FF5722"
+                    android:text="Rp 50.000" />
+
+                <TextView
+                    android:id="@+id/terjual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:text="10RB+ terjual"
+                    android:textSize="9dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/diskon_lyt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="4dp"
+            android:background="#FFC107"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/terjual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="6dp"
-                android:text="10RB+ terjual"
-                android:textSize="9dp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+                android:id="@+id/tv_diskon"
+                android:text="10%"
+                android:textColor="#F44336"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="OFF"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

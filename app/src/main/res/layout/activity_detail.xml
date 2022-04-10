@@ -115,7 +115,21 @@
                     android:layout_height="match_parent">
 
 
+
+                    <ss.com.bannerslider.Slider
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:slider_hideIndicators="false"
+                        app:slider_animateIndicators="true"
+                        app:slider_loopSlides="true"
+                        app:slider_selectedSlideIndicator="@drawable/selected_slide_indicator"
+                        app:slider_unselectedSlideIndicator="@drawable/unselected_slide_indicator" />
+
+
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:visibility="gone"
+                        android:id="@+id/gambar"
                         app:srcCompat="@drawable/baju1"
                         android:scaleType="fitCenter"
                         android:background="#f2f2f2"
@@ -127,7 +141,8 @@
                         android:backgroundTint="#ddd" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:text="Baju batik model 3 abc semua murah"
+                        android:id="@+id/judul"
+                        android:text="Title produk"
                         android:padding="@dimen/activity_horizontal_margin"
                         android:textSize="18dp"
                         android:background="#ffffff"
@@ -148,12 +163,14 @@
                             android:layout_height="wrap_content">
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/kategori"
                                 android:text="Pakaian Pria"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:text="Tersedia 3 barang"
+                                android:id="@+id/stok"
+                                android:text="Tersedia 0 barang"
                                 android:textColor="#FF5722"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
@@ -174,7 +191,8 @@
                                 android:layout_height="wrap_content"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:text="Rp 50.000"
+                                android:id="@+id/harga"
+                                android:text="Rp 0"
                                 android:gravity="right"
                                 android:textColor="#4CAF50"
                                 android:layout_width="match_parent"
@@ -198,7 +216,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:text="isi deskripsi"
+                            android:id="@+id/keterangan"
+                            android:text="-"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
@@ -254,9 +273,10 @@
                         android:text="Total Harga" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/harga_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Rp 50.000"
+                        android:text="Rp 0"
                         android:textColor="#FF5722" />
 
                 </LinearLayout>
@@ -271,25 +291,33 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/action_jumlah_beli_min"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
+                        android:background="?selectableItemBackground"
                         app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_jumlah_beli"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext_style1"
                         android:inputType="number"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="1"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="0"
+                        android:textSize="12dp"
                         android:textAlignment="center" />
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/action_jumlah_beli_plus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
+                        android:background="?selectableItemBackground"
                         app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
                 </LinearLayout>
@@ -306,21 +334,21 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
+                    android:visibility="gone"
                     android:id="@+id/actionCart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
-                    android:text="Add to Cart"
+                    android:text="Tambah Keranjang"
                     app:backgroundTint="#F44336" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/actionBuy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:layout_weight="2"
-                    android:text="Buy"
+                    android:text="Beli"
                     app:backgroundTint="#4CAF50" />
 
 

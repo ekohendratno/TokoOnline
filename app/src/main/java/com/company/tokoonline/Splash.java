@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class Splash extends AppCompatActivity {
 
     Context context;
     RequestQueue requestQueue;
+    SharedPreferences sharedpreferences;
 
     private final Handler waitHandler = new Handler();
     private final Runnable waitCallback = () -> {
@@ -56,6 +58,7 @@ public class Splash extends AppCompatActivity {
 
         context = Splash.this;
         requestQueue = AppController.getInstance().getRequestQueue();
+        sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
         TextView tv_version = findViewById(R.id.tv_version);
 
@@ -77,6 +80,7 @@ public class Splash extends AppCompatActivity {
     private void requestStoragePermission() {
 
         String[] permissions = {
+                Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
@@ -85,6 +89,27 @@ public class Splash extends AppCompatActivity {
             public void onGranted() {
                 // do your task.
                 Log.e("izin", "Semua izin telah disetujui!");
+
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("uid", "eko.hendratno@gmail.com");
+                editor.putString("email", "eko.hendratno@gmail.com");
+                editor.putString("nama", "EKO HENDRATNO");
+                editor.putString("notelp", "08570000");
+                editor.putString("alamat", "Jl. Jendral Sudirman");
+
+                editor.putString("pengiriman_nama", "EKO HENDRATNO");
+                editor.putString("pengiriman_notelp", "085769641780");
+                editor.putString("pengiriman_provinsi", "Lampung");
+                editor.putString("pengiriman_kabupaten", "Lampung Selatan");
+                editor.putString("pengiriman_kecamatan", "Candipuro");
+                editor.putString("pengiriman_desa", "Rawa Selapan");
+                editor.putString("pengiriman_rt", "001");
+                editor.putString("pengiriman_rw", "003");
+                editor.putString("pengiriman_kodepos", "35356");
+                editor.putString("pengiriman_lain", "Jl. Jendral Sudirman");
+
+                editor.apply();
 
                 waitHandler.postDelayed(waitCallback, 2000);
 
