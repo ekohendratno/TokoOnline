@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +48,9 @@ public class PencarianActivity extends AppCompatActivity {
 
     private TextInputEditText tf_query;
 
+    private ProgressBar progressBar;
+    private LinearLayout empty_view;
+
     long delay = 1500; // 1 seconds after user stops typing
     long last_text_edit = 0;
     Handler handler = new Handler();
@@ -67,7 +73,6 @@ public class PencarianActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +83,9 @@ public class PencarianActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
         tf_query = findViewById(R.id.tf_query);
+        empty_view = findViewById(R.id.empty_view);
         recyleviewRekomendasi = findViewById(R.id.recycle_view0);
+        progressBar = findViewById(R.id.progressBar);
 
         findViewById(R.id.actionBack).setOnClickListener(v -> {
 
@@ -164,9 +171,18 @@ public class PencarianActivity extends AppCompatActivity {
                                         rekomendasi.getInt("barang_terjual"),
                                         rekomendasi.getString("barang_gambar"),
                                         rekomendasi.getString("barang_tanggal"),
-                                        rekomendasi.getString("barang_tanggal_diubah")
+                                        rekomendasi.getString("barang_tanggal_diubah"),
+                                        rekomendasi.getString("barang_status")
                                 ));
                             }
+
+
+
+                            if(barangRekomendasiItemList.size() > 0){
+                                empty_view.setVisibility(View.GONE);
+                            }
+
+
                             recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );
                             rekomendasiAdapter = new RekomendasiAdapter(context, barangRekomendasiItemList);
                             recyleviewRekomendasi.setAdapter(rekomendasiAdapter);
@@ -207,10 +223,13 @@ public class PencarianActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            progressBar.setVisibility(View.GONE);
         }
 
         @Override
         protected void onPreExecute() {
+            empty_view.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 

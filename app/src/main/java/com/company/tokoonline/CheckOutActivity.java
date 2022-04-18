@@ -1,10 +1,12 @@
 package com.company.tokoonline;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 public class CheckOutActivity extends AppCompatActivity {
 
+    private String uid;
     private int key;
     private int beli;
     private int ongkir;
@@ -52,6 +55,8 @@ public class CheckOutActivity extends AppCompatActivity {
     TextView tv_harga_total_pembayaran2;
     EditText et_catatan;
 
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +65,22 @@ public class CheckOutActivity extends AppCompatActivity {
         context = CheckOutActivity.this;
         key = getIntent().getIntExtra("key",0);
         beli = getIntent().getIntExtra("beli",0);
+
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        uid = sharedpreferences.getString("uid","");
+
+
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
+
+        if( TextUtils.isEmpty(uid) ){
+
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+
+        }
 
 
         alamat_pengiriman = findViewById(R.id.alamat_pengiriman);
@@ -80,8 +100,9 @@ public class CheckOutActivity extends AppCompatActivity {
         et_catatan = findViewById(R.id.catatan);
 
         String alamat_pengiriman_text = "";
-        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_nama","") +" | ";
+        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_penerima","") +" | ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_notelp","") +"\n";
+        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_jalan","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_provinsi","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_kabupaten","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_kecamatan","") +" ";

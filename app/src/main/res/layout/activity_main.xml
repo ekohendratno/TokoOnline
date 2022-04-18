@@ -28,6 +28,18 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent">
 
+
+                <ImageView
+                    android:id="@+id/admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/cari"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_create_24"
+                    app:tint="#4CAF50" />
+
                 <ImageView
                     android:id="@+id/cari"
                     android:layout_width="wrap_content"
@@ -78,8 +90,8 @@
                     android:id="@+id/akun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_baseline_person_24"
@@ -100,8 +112,8 @@
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/actionBack"
                     android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/actionBack"
                     android:fontFamily="sans-serif-black"
                     android:text="BUTIK"
                     android:textColor="#FF5722" />
@@ -187,63 +199,74 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:scrollbars="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <ss.com.bannerslider.Slider
+                    <include layout="@layout/layout_empty"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_main"
                         android:visibility="gone"
-                        android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="120dp"
-                        app:slider_hideIndicators="false"
-                        app:slider_animateIndicators="true"
-                        app:slider_loopSlides="true"
-                        app:slider_selectedSlideIndicator="@drawable/selected_slide_indicator"
-                        app:slider_unselectedSlideIndicator="@drawable/unselected_slide_indicator" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+
+                        <ss.com.bannerslider.Slider
+                            android:visibility="gone"
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="120dp"
+                            app:slider_hideIndicators="false"
+                            app:slider_animateIndicators="true"
+                            app:slider_loopSlides="true"
+                            app:slider_selectedSlideIndicator="@drawable/selected_slide_indicator"
+                            app:slider_unselectedSlideIndicator="@drawable/unselected_slide_indicator" />
 
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="TERKINI"
-                        android:textColor="#FF5722"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="TERKINI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="KATEGORI"
-                        android:textColor="#FF5722"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="KATEGORI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="REKOMENDASI"
-                        android:textColor="#FF5722"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="REKOMENDASI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

@@ -141,7 +141,8 @@ public class KategoriActivity extends AppCompatActivity {
                                         rekomendasi.getInt("barang_terjual"),
                                         rekomendasi.getString("barang_gambar"),
                                         rekomendasi.getString("barang_tanggal"),
-                                        rekomendasi.getString("barang_tanggal_diubah")
+                                        rekomendasi.getString("barang_tanggal_diubah"),
+                                        rekomendasi.getString("barang_status")
                                 ));
                             }
                             recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );

@@ -1,5 +1,6 @@
 package com.company.tokoonline;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -59,6 +62,9 @@ public class DetailActivity extends AppCompatActivity {
     MaterialButton actionCart;
     MaterialButton actionBuy;
 
+    ProgressDialog dialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +76,9 @@ public class DetailActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
 
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
 
         judul = findViewById(R.id.judul);
         kategori = findViewById(R.id.kategori);
@@ -140,6 +149,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/detail?uid="+uid+"&key="+key, response -> {
                     Log.e("VOLLEY", response);
+                    dialog.dismiss();
                     try {
 
                         final JSONObject req = new JSONObject(response);
@@ -178,6 +188,7 @@ public class DetailActivity extends AppCompatActivity {
 
                             int s = barang_stok;
                             int h = barang_harga;
+
                             if( s >= 1 ){
                                 stok.setText( "Tersedia "+barang_stok+" barang" );
                                 edit_jumlah_beli.setText( "1" );
@@ -187,6 +198,8 @@ public class DetailActivity extends AppCompatActivity {
                                 actionBuy.setEnabled(true);
                             }else{
                                 stok.setText( "Habis" );
+                                actionBuy.setText( "Habis" );
+
                                 edit_jumlah_beli.setText( "0" );
 
                                 action_jumlah_beli_min.setEnabled(false);
@@ -258,10 +271,15 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            actionBuy.setEnabled(true);
+            actionCart.setEnabled(true);
         }
 
         @Override
         protected void onPreExecute() {
+            actionBuy.setEnabled(false);
+            actionCart.setEnabled(false);
+            dialog.show();
         }
     }
 

@@ -113,7 +113,7 @@
                     android:padding="@dimen/activity_horizontal_margin">
 
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Silahkan lakukkan upload bukti transfer pembayaran pesanan dan lakukkan konfirmasi untuk Kami tinjau pesanan Anda"
@@ -140,13 +140,14 @@
                         android:layout_marginTop="4dp">
 
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Nomor Pesanan"
                             android:textColor="#777676" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
+                            android:id="@+id/nota"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -177,10 +178,9 @@
                         android:orientation="vertical"
                         android:padding="40dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:tint="#777676"
                             app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 
                         <TextView
@@ -199,7 +199,7 @@
                         android:orientation="vertical"
                         android:padding="10dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <ImageView
                             android:id="@+id/foto"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

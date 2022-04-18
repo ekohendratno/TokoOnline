@@ -43,6 +43,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         BankItem banktItem = checkoutItemList.get(position);
 
         viewHolder.bank_nama.setText(banktItem.bank_nama);
+        viewHolder.bank_atas_nama.setText(banktItem.bank_atas_nama);
         viewHolder.bank_norek.setText(banktItem.bank_norek);
 
     }
@@ -59,6 +60,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
         private LinearLayout linearLayout;
         private TextView bank_nama;
+        private TextView bank_atas_nama;
         private TextView bank_norek;
 
 
@@ -66,6 +68,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
             super(view);
 
             bank_nama = view.findViewById(R.id.bank_nama);
+            bank_atas_nama = view.findViewById(R.id.bank_atas_nama);
             bank_norek = view.findViewById(R.id.bank_norek);
         }
     }

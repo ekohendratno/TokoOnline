@@ -40,16 +40,15 @@
 
 
                 <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/refresh"
+                    android:id="@+id/actionEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_refresh"
-                    app:tint="#C4C4C4" />
+                    app:srcCompat="@drawable/ic_baseline_create_24"
+                    app:tint="#4CAF50" />
 
                 <ImageView
                     android:id="@+id/actionBack"
@@ -109,20 +108,20 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:background="#ffffff"
-                    android:padding="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
 
                     <TextView
-                        android:textColor="#777676"
-                        android:text="Pembayaran"
-                        android:paddingBottom="8dp"
+                        android:textColor="#BABABA"
+                        android:text="Akun"
+                        android:padding="@dimen/activity_horizontal_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
-                        android:layout_marginTop="4dp"
+                        android:visibility="gone"
+                        android:padding="@dimen/activity_horizontal_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -130,15 +129,411 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bank BRI" />
+                            android:text="User ID" />
 
                         <TextView
+                            android:id="@+id/uid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="191 9191 928323 77" />
+                            android:text="-" />
                     </RelativeLayout>
 
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap" />
+
+                        <TextView
+                            android:id="@+id/namalengkap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Kelamin" />
+
+                        <TextView
+                            android:id="@+id/jk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No. Telp" />
+
+                        <TextView
+                            android:id="@+id/notelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat" />
+
+                        <TextView
+                            android:id="@+id/alamat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/pengiriman"
+                    android:orientation="vertical"
+                    android:background="#ffffff"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textColor="#BABABA"
+                        android:text="Alamat Pengiriman"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Penerima" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_penerima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No. Telp" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_notelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jalan" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_jalan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Provinsi" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_provinsi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kabupaten" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kabupaten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kecamatan" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kecamatan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Desa" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_desa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RT" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_rt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RW" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_rw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kode Pos" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kodepos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
 
 
                 </LinearLayout>
@@ -163,7 +558,7 @@
             android:padding="@dimen/activity_horizontal_margin">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/actionKonfirmasi"
+                android:id="@+id/actionLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"

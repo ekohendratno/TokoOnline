@@ -9,7 +9,7 @@ android {
         applicationId "com.company.tokoonline"
         minSdk 21
         targetSdk 31
-        versionCode 1
+        versionCode 2
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
     implementation 'com.nabinbhandari.android:permissions:3.8'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+
 }

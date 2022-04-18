@@ -34,6 +34,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Bank BRI" />
+                    <TextView
+                        android:id="@+id/bank_atas_nama"
+                        android:layout_below="@+id/bank_nama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#787878"
+                        android:text="PT. BATIK" />
 
                     <TextView
                         android:id="@+id/bank_norek"

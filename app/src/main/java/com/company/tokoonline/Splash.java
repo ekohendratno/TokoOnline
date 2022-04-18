@@ -90,27 +90,6 @@ public class Splash extends AppCompatActivity {
                 // do your task.
                 Log.e("izin", "Semua izin telah disetujui!");
 
-
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("uid", "eko.hendratno@gmail.com");
-                editor.putString("email", "eko.hendratno@gmail.com");
-                editor.putString("nama", "EKO HENDRATNO");
-                editor.putString("notelp", "08570000");
-                editor.putString("alamat", "Jl. Jendral Sudirman");
-
-                editor.putString("pengiriman_nama", "EKO HENDRATNO");
-                editor.putString("pengiriman_notelp", "085769641780");
-                editor.putString("pengiriman_provinsi", "Lampung");
-                editor.putString("pengiriman_kabupaten", "Lampung Selatan");
-                editor.putString("pengiriman_kecamatan", "Candipuro");
-                editor.putString("pengiriman_desa", "Rawa Selapan");
-                editor.putString("pengiriman_rt", "001");
-                editor.putString("pengiriman_rw", "003");
-                editor.putString("pengiriman_kodepos", "35356");
-                editor.putString("pengiriman_lain", "Jl. Jendral Sudirman");
-
-                editor.apply();
-
                 waitHandler.postDelayed(waitCallback, 2000);
 
 

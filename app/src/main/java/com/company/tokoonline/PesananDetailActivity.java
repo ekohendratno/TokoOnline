@@ -1,5 +1,7 @@
 package com.company.tokoonline;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -21,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.company.tokoonline.adapters.PesananAdapter;
+import com.company.tokoonline.admin.AdminPesananDetail;
 import com.company.tokoonline.config.AppController;
 import com.company.tokoonline.config.Config;
 import com.company.tokoonline.models.TransaksiItem;
@@ -31,7 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PesananDetailActivity extends AppCompatActivity {
 
@@ -52,6 +58,10 @@ public class PesananDetailActivity extends AppCompatActivity {
     TextView waktu_pengiriman;
     TextView waktu_pesanan_selesai;
     TextView catatan;
+    TextView noresi;
+    TextView noresi_copy;
+
+
     MaterialButton actionBatal;
     MaterialButton actionCheckout;
 
@@ -78,13 +88,31 @@ public class PesananDetailActivity extends AppCompatActivity {
         waktu_pengiriman = findViewById(R.id.waktu_pengiriman);
         waktu_pesanan_selesai = findViewById(R.id.waktu_pesanan_selesai);
         catatan = findViewById(R.id.catatan);
+        noresi = findViewById(R.id.noresi);
+        noresi_copy = findViewById(R.id.noresi_copy);
+
         actionBatal = findViewById(R.id.actionBatal);
         actionCheckout = findViewById(R.id.actionCheckout);
 
+        noresi_copy.setOnClickListener(v->{
+            String text = noresi.getText().toString();
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboard.setText(text);
+            } else {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+                clipboard.setPrimaryClip(clip);
+            }
+
+            Toast.makeText(v.getContext(),"Resi disalin",Toast.LENGTH_SHORT).show();
+        });
+
 
         String alamat_pengiriman_text = "";
-        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_nama","") +" | ";
+        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_penerima","") +" | ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_notelp","") +"\n";
+        alamat_pengiriman_text += sharedpreferences.getString("pengiriman_jalan","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_provinsi","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_kabupaten","") +" ";
         alamat_pengiriman_text += sharedpreferences.getString("pengiriman_kecamatan","") +" ";
@@ -158,11 +186,15 @@ public class PesananDetailActivity extends AppCompatActivity {
                             }else if( transaksi_status.equalsIgnoreCase("Dikirim") ){
                                 actionCheckout.setText("Terima Pesanan");
                                 actionCheckout.setOnClickListener(v -> {
-
+                                    new sendDataTerima().execute();
                                 });
                             }else if( transaksi_status.equalsIgnoreCase("Diterima") ){
                                 actionCheckout.setText("Beli Lagi");
                                 actionCheckout.setOnClickListener(v -> {
+
+                                    Intent myIntent = new Intent(v.getContext(), DetailActivity.class);
+                                    myIntent.putExtra("key", key); //Optional parameters
+                                    v.getContext().startActivity(myIntent);
 
                                 });
                             }else if( transaksi_status.equalsIgnoreCase("Dibatalkan") ){
@@ -184,6 +216,7 @@ public class PesananDetailActivity extends AppCompatActivity {
                             waktu_pengiriman.setText( jsonObject.getString("transaksi_tanggal_dikirim") );
                             waktu_pesanan_selesai.setText( jsonObject.getString("transaksi_tanggal_pesanan_selesai") );
                             catatan.setText( jsonObject.getString("transaksi_catatan") );
+                            noresi.setText( jsonObject.getString("transaksi_noresi") );
 
 
                         }else{
@@ -288,6 +321,69 @@ public class PesananDetailActivity extends AppCompatActivity {
         protected void onPreExecute() {
         }
     }
+
+
+
+    private class sendDataTerima extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+
+                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+                String uid = sharedpreferences.getString("uid", "");
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.restapi + "/api/pesanan_terima?uid="+uid+"&key="+key, response -> {
+                    Log.e("VOLLEY", response);
+                    try {
+
+                        final JSONObject req = new JSONObject(response);
+
+                        if( req.getBoolean("success") ) {
+
+
+                            new getDataPesananDetail().execute();
+
+                        }else{
+                        }
+                    } catch (Exception e) {
+                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
+
+                    }
+                }, error -> {
+                    Log.e("VOLLEY", error.toString());
+
+                });
+
+
+
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                requestQueue.add(stringRequest);
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

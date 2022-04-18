@@ -1,11 +1,13 @@
 package com.company.tokoonline;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +16,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,6 +29,7 @@ import com.company.tokoonline.adapters.SliderImageAdapter;
 import com.company.tokoonline.adapters.TerkiniAdapter;
 import com.company.tokoonline.adapters.KategoriAdapter;
 import com.company.tokoonline.adapters.RekomendasiAdapter;
+import com.company.tokoonline.admin.AdminDashboard;
 import com.company.tokoonline.config.AppController;
 import com.company.tokoonline.config.Config;
 import com.company.tokoonline.config.PicassoImageLoadingService;
@@ -62,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
     private SwipeRefreshLayout swipeRefresh;
 
+    ProgressDialog dialog;
+
+    private LinearLayout empty_view;
+    private LinearLayout layout_main;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,39 +82,69 @@ public class MainActivity extends AppCompatActivity {
         context = MainActivity.this;
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
 
-        findViewById(R.id.pesanan).setOnClickListener(v -> {
+        empty_view = findViewById(R.id.empty_view);
+        layout_main = findViewById(R.id.layout_main);
+
+
+        ImageView pesanan = findViewById(R.id.pesanan);
+        ImageView akun = findViewById(R.id.akun);
+        ImageView cart = findViewById(R.id.cart);
+        ImageView cari = findViewById(R.id.cari);
+        ImageView pesan = findViewById(R.id.cari);
+
+        pesanan.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), PesananActivity.class);
-            myIntent.putExtra("key", "1"); //Optional parameters
             v.getContext().startActivity(myIntent);
         });
 
-        findViewById(R.id.akun).setOnClickListener(v -> {
+        akun.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), AkunActivity.class);
-            myIntent.putExtra("key", "1"); //Optional parameters
             v.getContext().startActivity(myIntent);
 
         });
 
-        findViewById(R.id.cart).setOnClickListener(v -> {
+        cart.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), CartActivity.class);
-            myIntent.putExtra("key", "1"); //Optional parameters
             v.getContext().startActivity(myIntent);
         });
 
-        findViewById(R.id.cari).setOnClickListener(v -> {
+        cari.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), PencarianActivity.class);
             v.getContext().startActivity(myIntent);
 
         });
 
-        findViewById(R.id.pesan).setOnClickListener(v -> {
+        pesan.setOnClickListener(v -> {
 
         });
+
+
+
+        ImageView admin = findViewById(R.id.admin);
+        admin.setVisibility(View.GONE);
+
+        String level = sharedpreferences.getString("level","");
+        if( level.equalsIgnoreCase("penjual") ){
+            admin.setVisibility(View.VISIBLE);
+            cari.setVisibility(View.GONE);
+            pesanan.setVisibility(View.GONE);
+        }
+
+        admin.setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), AdminDashboard.class);
+            v.getContext().startActivity(myIntent);
+
+        });
+
 
 
         slider = findViewById(R.id.banner);
@@ -146,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/home?uid="+uid, response -> {
                     Log.e("VOLLEY", response);
+                    dialog.dismiss();
+                    layout_main.setVisibility(View.VISIBLE);
                     try {
 
                         final JSONObject req = new JSONObject(response);
@@ -202,7 +245,8 @@ public class MainActivity extends AppCompatActivity {
                                         terkini.getInt("barang_terjual"),
                                         terkini.getString("barang_gambar"),
                                         terkini.getString("barang_tanggal"),
-                                        terkini.getString("barang_tanggal_diubah")
+                                        terkini.getString("barang_tanggal_diubah"),
+                                        terkini.getString("barang_status")
                                 ));
                             }
 
@@ -221,7 +265,8 @@ public class MainActivity extends AppCompatActivity {
                                         promo.getInt("kategori_id"),
                                         promo.getString("kategori_judul"),
                                         promo.getString("kategori_parent"),
-                                        promo.getString("kategori_gambar")
+                                        promo.getString("kategori_gambar"),
+                                        promo.getString("kategori_status")
                                 ));
                             }
 
@@ -250,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
                                         rekomendasi.getInt("barang_terjual"),
                                         rekomendasi.getString("barang_gambar"),
                                         rekomendasi.getString("barang_tanggal"),
-                                        rekomendasi.getString("barang_tanggal_diubah")
+                                        rekomendasi.getString("barang_tanggal_diubah"),
+                                        rekomendasi.getString("barang_status")
                                 ));
                             }
                             recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );
@@ -293,10 +339,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            empty_view.setVisibility(View.GONE);
+
         }
 
         @Override
         protected void onPreExecute() {
+            empty_view.setVisibility(View.VISIBLE);
+            layout_main.setVisibility(View.GONE);
+
+            dialog.show();
         }
     }
 

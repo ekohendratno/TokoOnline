@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="8dp"
+                android:adjustViewBounds="true"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                android:background="#ddd"
+                android:src="@drawable/baju1" />
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:padding="10dp"
+                android:layout_toLeftOf="@+id/layoutAction"
+                android:layout_toRightOf="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:maxLength="35"
+                    android:text="-" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/harga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="6dp"
+                        android:text="Rp 0"
+                        android:textColor="#FF5722" />
+
+
+                    <LinearLayout
+                        android:id="@+id/qty_lyt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/ket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:textColor="#787878"
+                            android:gravity="right"
+                            android:text="Dis 0%, Jual 0x" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutAction"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/actionHapus"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/circle"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_baseline_delete_forever_24"
+                    app:tint="#F44336" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            style="@style/divider"
+            android:layout_height="1dip"
+            android:backgroundTint="#7A7A7A" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

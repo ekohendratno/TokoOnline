@@ -61,11 +61,11 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
         }else if( transaksiItem.transaksi_status.equalsIgnoreCase("Diperiksa") ){
             viewHolder.actionCek.setText("Pembayaran Diperiksa");
         }else if( transaksiItem.transaksi_status.equalsIgnoreCase("Bayar") ){
-            viewHolder.actionCek.setText("Pembayaran Diterima");
+            viewHolder.actionCek.setText("Sudah Bayar");
         }else if( transaksiItem.transaksi_status.equalsIgnoreCase("Dikirim") ){
-            viewHolder.actionCek.setText("Terima Pesanan");
+            viewHolder.actionCek.setText("Dikirim");
         }else if( transaksiItem.transaksi_status.equalsIgnoreCase("Diterima") ){
-            viewHolder.actionCek.setText("Beli Lagi");
+            viewHolder.actionCek.setText("Diterima");
         }else if( transaksiItem.transaksi_status.equalsIgnoreCase("Dibatalkan") ){
             viewHolder.actionCek.setText("Dibatalkan");
         }

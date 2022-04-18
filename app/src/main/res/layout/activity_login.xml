@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="#ffffff">
+
+
+        <LinearLayout
+            android:id="@+id/main_row"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/actionInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_outline_info_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:id="@+id/actionBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_arrow_back"
+                    app:tint="#FF5722" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toLeftOf="@+id/actionInfo"
+                    android:layout_toRightOf="@+id/actionBack"
+
+                    android:background="#ffffff"
+                    android:elevation="0dp"
+                    app:tabGravity="start"
+                    app:tabIconTint="#353535"
+                    app:tabIndicatorColor="#00353535"
+                    app:tabIndicatorHeight="1dp"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="#FF5722"
+                    app:tabTextColor="#AAAAAA">
+
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="LOGIN" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DAFTAR" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <RelativeLayout
+            android:id="@+id/lytLogin"
+            android:background="#ffebebeb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="40dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="100dp"
+                                android:fontFamily="sans-serif-black"
+                                android:gravity="center"
+                                android:text="BUTIK"
+                                android:textColor="#FF5722" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/formLoginLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/progressBarLarge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-light"
+                                android:gravity="center"
+                                android:text="Mohon tunggu sebentar..."
+                                android:textColor="#ddd" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/formLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/list_vertical_margin"
+                                android:backgroundTint="#FFFFFF"
+                                android:orientation="vertical"
+                                app:cardCornerRadius="5dp"
+                                app:cardElevation="3dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@android:color/transparent"
+                                        android:hint="Akun Login"
+                                        app:boxBackgroundColor="@android:color/transparent"
+                                        app:boxStrokeWidth="0dp"
+                                        app:boxStrokeWidthFocused="0dp"
+                                        app:endIconMode="clear_text"
+                                        app:startIconDrawable="@drawable/ic_baseline_person_24"
+                                        app:startIconTint="#989898">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/editAkun"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:focusable="true"
+                                            android:fontFamily="sans-serif-light"
+                                            android:inputType="textEmailAddress"
+                                            android:maxLines="1"
+                                            android:text="" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <View style="@style/divider" />
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@android:color/transparent"
+                                        android:hint="Kata Sandi"
+                                        app:boxBackgroundColor="@android:color/transparent"
+                                        app:boxStrokeWidth="0dp"
+                                        app:boxStrokeWidthFocused="0dp"
+                                        app:endIconMode="password_toggle"
+                                        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+                                        app:startIconTint="#989898">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/editPassword"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif-light"
+                                            android:inputType="textPassword"
+                                            android:maxLines="1"
+                                            android:text="" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/actSignIn"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginRight="@dimen/activity_vertical_margin"
+                                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                                android:backgroundTint="@color/colorSakit"
+                                android:elevation="3dp"
+                                android:fontFamily="sans-serif-light"
+                                android:minHeight="60dp"
+                                android:text="MASUK"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorWhite"
+                                app:elevation="3dp"
+                                app:strokeWidth="0dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+            <TextView
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:padding="8dp"
+                android:id="@+id/tv_version"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#80f2f2f2"
+                android:text=""/>
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/lytDaftar"
+            android:visibility="gone"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/c_d"
+            android:background="#ffffff"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#BABABA"
+                    android:text="Akun Login"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:textColor="#BABABA"
+                    android:text="Detail lain"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Lengkap"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_nama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Jenis Kelamin">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/user_jk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="No. Telp"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_notelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_alamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/actionSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Kirim Pendaftaran"
+                    android:textColor="#ffffff"
+                    app:backgroundTint="#4CAF50"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,10 +1,16 @@
 package com.company.tokoonline;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +41,10 @@ public class PesananActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PesananAdapter cartAdapter;
 
+    private ProgressBar progressBar;
+    private ProgressDialog progressBarDialog;
+    private LinearLayout empty_view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +54,22 @@ public class PesananActivity extends AppCompatActivity {
         context = PesananActivity.this;
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBarDialog= new ProgressDialog(context);
+        progressBarDialog.setMessage("Tunggu sebentar...");
+        progressBarDialog.setCancelable(false);
 
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        if( TextUtils.isEmpty(uid) ){
+
+            startActivity(new Intent(context, LoginActivity.class));
+            finish();
+
+        }
+
+        empty_view = findViewById(R.id.empty_view);
         recyclerView = findViewById(R.id.recycle_view0);
         recyclerView.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) );
 
@@ -107,6 +132,10 @@ public class PesananActivity extends AppCompatActivity {
                                 ));
                             }
 
+                            if(transaskiItemList.size() > 0){
+                                empty_view.setVisibility(View.GONE);
+                            }
+
                             cartAdapter = new PesananAdapter(context, transaskiItemList);
                             recyclerView.setAdapter(cartAdapter);
 
@@ -142,10 +171,18 @@ public class PesananActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            progressBar.setVisibility(View.GONE);
+
+            if (progressBarDialog.isShowing()) {
+                progressBarDialog.dismiss();
+            }
         }
 
         @Override
         protected void onPreExecute() {
+            empty_view.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBarDialog.show();
         }
     }
 

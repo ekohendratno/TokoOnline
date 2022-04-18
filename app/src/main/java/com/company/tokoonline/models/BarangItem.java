@@ -14,6 +14,7 @@ public class BarangItem {
     public String barang_gambar;
     public String barang_tanggal;
     public String barang_tanggal_diubah;
+    public String barang_status;
     public int id;
 
     public BarangItem(
@@ -30,7 +31,8 @@ public class BarangItem {
             int barang_terjual,
             String barang_gambar,
             String barang_tanggal,
-            String barang_tanggal_diubah) {
+            String barang_tanggal_diubah,
+            String barang_status) {
         this.id = id;
         this.barang_judul = barang_judul;
         this.barang_katerangan = barang_katerangan;
@@ -45,5 +47,6 @@ public class BarangItem {
         this.barang_gambar = barang_gambar;
         this.barang_tanggal = barang_tanggal;
         this.barang_tanggal_diubah = barang_tanggal_diubah;
+        this.barang_status = barang_status;
     }
 }

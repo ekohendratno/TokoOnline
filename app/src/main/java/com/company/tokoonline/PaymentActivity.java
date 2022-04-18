@@ -127,6 +127,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 bankItemList.add(new BankItem(
                                         keranjang.getInt("bank_id"),
                                         keranjang.getString("bank_nama"),
+                                        keranjang.getString("bank_atas_nama"),
                                         keranjang.getString("bank_norek")
                                 ));
                             }

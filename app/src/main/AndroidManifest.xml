@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".DetailActivity"/>
         <activity android:name=".CartActivity"/>
@@ -40,6 +41,18 @@
         <activity android:name=".PencarianActivity"/>
 
         <activity android:name=".AkunActivity"/>
+
+        <!--ADMIN-->
+
+
+        <activity android:name=".admin.AdminDashboard"/>
+        <activity android:name=".admin.AdminBarang"/>
+        <activity android:name=".admin.AdminKategori"/>
+        <activity android:name=".admin.AdminBank"/>
+        <activity android:name=".admin.AdminPesanan"/>
+        <activity android:name=".admin.AdminPesananDetail"/>
+
+
     </application>
 
 </manifest>

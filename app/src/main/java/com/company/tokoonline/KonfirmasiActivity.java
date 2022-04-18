@@ -49,8 +49,8 @@ public class KonfirmasiActivity extends AppCompatActivity {
     private Context context;
     private SharedPreferences sharedpreferences;
 
-    AppCompatImageView foto;
-    TextView nota;
+    ImageView foto;
+    TextView tv_nota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class KonfirmasiActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
         foto = findViewById(R.id.foto);
-        nota = findViewById(R.id.nota);
+        tv_nota = findViewById(R.id.nota);
 
         findViewById(R.id.actionBack).setOnClickListener(v -> {
 
@@ -88,68 +88,6 @@ public class KonfirmasiActivity extends AppCompatActivity {
         new getDataPesananDetail().execute();
     }
 
-
-
-    private class getDataPesananDetail extends AsyncTask<String, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            try {
-
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-
-                String uid = sharedpreferences.getString("uid", "");
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/pesanan_detail?uid="+uid+"&key="+key, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
-
-                        final JSONObject req = new JSONObject(response);
-
-                        if( req.getBoolean("success") ) {
-                            JSONObject jsonObject = req.getJSONObject("response");
-
-                            nota.setText( "#"+jsonObject.getString("transaksi_nota") );
-
-
-                        }else{
-                        }
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                });
-
-
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            return true;
-        }
-
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-    }
 
     private void showPictureDialog(Context c){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(c);
@@ -347,6 +285,76 @@ public class KonfirmasiActivity extends AppCompatActivity {
         height = scaledBitmap.getHeight();
 
         return scaledBitmap;
+    }
+
+
+
+
+
+
+
+
+
+
+    private class getDataPesananDetail extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+
+                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+                String uid = sharedpreferences.getString("uid", "");
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/pesanan_detail?uid="+uid+"&key="+key, response -> {
+                    Log.e("VOLLEY", response);
+                    try {
+
+                        final JSONObject req = new JSONObject(response);
+
+                        if( req.getBoolean("success") ) {
+                            JSONObject jsonObject = req.getJSONObject("response");
+                            tv_nota.setText("#"+jsonObject.getString("transaksi_nota"));
+
+                            Picasso.with( context ).load( jsonObject.getString("transaksi_strukbukti") ).into( foto );
+
+                        }else{
+                        }
+                    } catch (Exception e) {
+                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
+
+                    }
+                }, error -> {
+                    Log.e("VOLLEY", error.toString());
+
+                });
+
+
+
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                requestQueue.add(stringRequest);
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
     }
 
     @Override

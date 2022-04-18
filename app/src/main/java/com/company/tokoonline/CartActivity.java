@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,15 @@ public class CartActivity extends AppCompatActivity {
 
         context = CartActivity.this;
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        if( TextUtils.isEmpty(uid) ){
+
+            startActivity(new Intent(context, LoginActivity.class));
+            finish();
+
+        }
 
 
         recyclerView = findViewById(R.id.recycle_view0);
