@@ -29,29 +29,76 @@
                 android:layout_width="match_parent">
 
 
-                <ProgressBar
-                    android:visibility="gone"
-                    android:layout_alignParentRight="true"
+                <ImageView
+                    android:id="@+id/admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:id="@+id/progress1"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"/>
-
+                    android:layout_toLeftOf="@+id/cari"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_create_24"
+                    app:tint="#4CAF50" />
 
                 <ImageView
-                    android:id="@+id/refresh"
+                    android:id="@+id/cari"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/pesanan"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_search_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:id="@+id/pesanan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/akun"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_event_note_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/akun"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/pesan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_refresh"
-                    app:tint="#C4C4C4" />
+                    app:srcCompat="@drawable/ic_baseline_chat_24"
+                    app:tint="#FF5722" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/akun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_person_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -59,16 +106,17 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_baseline_close_24"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="sans-serif-light"
-                    android:text="TOKO ONLINE"
-                    android:textColor="#44C666" />
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/actionBack"
+                    android:fontFamily="sans-serif-black"
+                    android:text="BUTIK"
+                    android:textColor="#FF5722" />
 
 
             </RelativeLayout>
@@ -79,6 +127,7 @@
 
 
         <com.google.android.material.tabs.TabLayout
+            android:visibility="gone"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -88,7 +137,7 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
 
-            android:layout_toRightOf="@+id/actBack"
+            android:layout_toRightOf="@+id/actionBack"
             android:background="#ffffff"
             android:elevation="0dp"
             app:tabGravity="center"
@@ -150,68 +199,73 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:scrollbars="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <com.smarteist.autoimageslider.SliderView
-                        android:id="@+id/imageSlider"
+                    <include layout="@layout/layout_empty"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_main"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        app:sliderAnimationDuration="600"
-                        app:sliderAutoCycleDirection="back_and_forth"
-                        app:sliderAutoCycleEnabled="true"
-                        app:sliderIndicatorAnimationDuration="600"
-                        app:sliderIndicatorGravity="center_horizontal|bottom"
-                        app:sliderIndicatorMargin="15dp"
-                        app:sliderIndicatorOrientation="horizontal"
-                        app:sliderIndicatorPadding="3dp"
-                        app:sliderIndicatorRadius="2dp"
-                        app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="#FFF"
-                        app:sliderScrollTimeInSec="1"
-                        app:sliderStartAutoCycle="true" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+
+                        <ss.com.bannerslider.Slider
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="120dp"
+                            app:slider_hideIndicators="false"
+                            app:slider_animateIndicators="true"
+                            app:slider_loopSlides="true"
+                            app:slider_selectedSlideIndicator="@drawable/selected_slide_indicator"
+                            app:slider_unselectedSlideIndicator="@drawable/unselected_slide_indicator" />
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="TERKINI"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="TERKINI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="KATEGORI"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="KATEGORI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="REKOMENDASI"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyle_view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="REKOMENDASI"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

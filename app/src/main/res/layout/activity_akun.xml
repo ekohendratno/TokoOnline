@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="#ffffff">
+
+
+        <LinearLayout
+            android:id="@+id/main_row"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/progress1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"/>
+
+
+                <ImageView
+                    android:id="@+id/actionEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_create_24"
+                    app:tint="#4CAF50" />
+
+                <ImageView
+                    android:id="@+id/actionBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_arrow_back"
+                    app:tint="#FF5722" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Akun Pengguna"
+                    android:textColor="#FF5722" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <View
+            android:id="@+id/root_view1"
+            style="@style/divider"
+            android:backgroundTint="#ddd" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_above="@+id/cart_layout"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f2f2f2"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textColor="#BABABA"
+                        android:text="Akun"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="User ID" />
+
+                        <TextView
+                            android:id="@+id/uid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap" />
+
+                        <TextView
+                            android:id="@+id/namalengkap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Kelamin" />
+
+                        <TextView
+                            android:id="@+id/jk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No. Telp" />
+
+                        <TextView
+                            android:id="@+id/notelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat" />
+
+                        <TextView
+                            android:id="@+id/alamat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/pengiriman"
+                    android:orientation="vertical"
+                    android:background="#ffffff"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textColor="#BABABA"
+                        android:text="Alamat Pengiriman"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Penerima" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_penerima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No. Telp" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_notelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jalan" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_jalan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Provinsi" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_provinsi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kabupaten" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kabupaten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kecamatan" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kecamatan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Desa" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_desa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RT" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_rt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RW" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_rw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                    <RelativeLayout
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kode Pos" />
+
+                        <TextView
+                            android:id="@+id/pengiriman_kodepos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-" />
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/divider"
+                        android:layout_height="1dip"
+                        android:backgroundTint="#7A7A7A" />
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            style="@style/divider"
+            android:backgroundTint="#ddd" />
+
+        <LinearLayout
+            android:id="@+id/cart_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/actionLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Logout" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

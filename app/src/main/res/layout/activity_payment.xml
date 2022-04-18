@@ -52,7 +52,7 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_arrow_back"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="sans-serif-light"
-                    android:text="Payment"
+                    android:text="Info Pembayaran"
                     android:textColor="#FF5722" />
 
 
@@ -92,204 +92,148 @@
             style="@style/divider"
             android:backgroundTint="#ddd" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+        <androidx.core.widget.NestedScrollView
             android:layout_above="@+id/cart_layout"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="#f2f2f2"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-            <androidx.core.widget.NestedScrollView
-                android:scrollbars="vertical"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/c_d"
-                android:background="#f2f2f2"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textColor="#777676"
+                        android:text="Silahkan lakukkan pembayaran pesanan Anda pada metode pembayaran dibawah ini dengan nominal yang tepat. Nominal berisi 3 kode unik pada nominal pembayaranmu, hal ini untuk mempercepat konfirmasi."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
 
                 <LinearLayout
+                    android:background="#ffffff"
                     android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:padding="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
-                        android:background="#ffffff"
-                        android:orientation="vertical"
-                        android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
                             android:textColor="#777676"
-                            android:text="Silahkan lakukkan pembayaran pesanan Anda pada metode pembayaran dibawah ini dengan nominal yang tepat. Nominal berisi 3 kode unik pada nominal pembayaranmu, hal ini untuk mempercepat konfirmasi."
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Pesanan" />
 
-                    </LinearLayout>
-
-                    <View
-                        style="@style/divider"
-                        android:backgroundTint="#ddd" />
-
-                    <LinearLayout
-                        android:background="#ffffff"
-                        android:orientation="vertical"
-                        android:layout_marginTop="10dp"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:textColor="#777676"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Nomor Pesanan" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="#2022040806090001" />
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                    <View
-                        style="@style/divider"
-                        android:backgroundTint="#ddd" />
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:background="#ffffff"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:textColor="#777676"
-                            android:text="Pembayaran"
-                            android:paddingBottom="8dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Bank BRI" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="191 9191 928323 77" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Bank BNI" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:text="191 9191 928323 77"
-                                android:layout_alignParentRight="true"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Bank Mandiri" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:text="191 9191 928323 77"
-                                android:layout_alignParentRight="true"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </RelativeLayout>
-
-
-
-                    </LinearLayout>
-
-                    <View
-                        style="@style/divider"
-                        android:backgroundTint="#ddd" />
-                    <LinearLayout
-                        android:background="#ffffff"
-                        android:orientation="vertical"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:text="Total Pembayaran"
-                                android:layout_toLeftOf="@+id/harga_total_pembayaran"
-                                android:textSize="18dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/harga_total_pembayaran"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="Rp 65.123"
-                                android:textColor="#FF5722"
-                                android:textSize="18dp" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-
+                        <TextView
+                            android:id="@+id/nota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="#" />
+                    </RelativeLayout>
 
 
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textColor="#777676"
+                        android:text="Pembayaran"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                    <include layout="@layout/layout_empty" android:visibility="gone"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_view0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+                <LinearLayout
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/harga_total_pembayaran"
+                            android:text="Total Pembayaran"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/harga_total_pembayaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="Rp 0"
+                            android:textColor="#FF5722"
+                            android:textSize="18dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
 
 
-        <View
-            style="@style/divider"
-            android:backgroundTint="#ddd" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/actionKonfirmasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:text="Konfirmasi Pembayaran"
+                    app:backgroundTint="#7E7E7E" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/cart_layout"
@@ -297,24 +241,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#ffffff"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/actionBack"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:text="Kembali" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/actionKonfirmasi"
-                android:layout_weight="1"
+                android:id="@+id/actionOk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="Konfirmasi"
+                android:text="OK"
                 app:backgroundTint="#FF5722" />
 
         </LinearLayout>

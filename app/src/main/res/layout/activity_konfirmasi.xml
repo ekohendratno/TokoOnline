@@ -52,7 +52,7 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
-                    android:id="@+id/actBack"
+                    android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_arrow_back"
-                    app:tint="#C4C4C4" />
+                    app:tint="#FF5722" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="sans-serif-light"
-                    android:text="Confirm Payment"
+                    android:text="Konfirmasi Pembayaran"
                     android:textColor="#FF5722" />
 
 
@@ -92,130 +92,127 @@
             style="@style/divider"
             android:backgroundTint="#ddd" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+        <androidx.core.widget.NestedScrollView
             android:layout_above="@+id/cart_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#f2f2f2"
+            android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-            <androidx.core.widget.NestedScrollView
-                android:scrollbars="vertical"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/c_d"
-                android:background="#f2f2f2"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
-                        android:background="#ffffff"
-                        android:orientation="vertical"
-                        android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:text="Silahkan lakukkan upload bukti transfer pembayaran pesanan dan lakukkan konfirmasi untuk Kami tinjau pesanan Anda"
+                        android:textColor="#777676" />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
 
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:textColor="#777676"
-                            android:text="Silahkan lakukkan upload bukti transfer pembayaran pesanan dan lakukkan konfirmasi untuk Kami tinjau pesanan Anda"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                    <View
-                        style="@style/divider"
-                        android:backgroundTint="#ddd" />
-
-                    <LinearLayout
-                        android:background="#ffffff"
-                        android:orientation="vertical"
-                        android:layout_marginTop="10dp"
-                        android:padding="@dimen/activity_horizontal_margin"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
 
 
-                        <RelativeLayout
-                            android:layout_marginTop="4dp"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Pesanan"
+                            android:textColor="#777676" />
 
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:textColor="#777676"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Nomor Pesanan" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="#2022040806090001" />
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                    <View
-                        style="@style/divider"
-                        android:backgroundTint="#ddd" />
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:background="#ffffff"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <LinearLayout
-                            android:background="#ddd"
-                            android:padding="40dp"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                app:srcCompat="@drawable/ic_baseline_photo_camera_24"
-                                android:tint="#777676"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"/>
-                            <TextView
-                                android:text="Drag n drop disini"
-                                android:gravity="center"
-                                android:textColor="#777676"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-
-
+                        <TextView
+                            android:id="@+id/nota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="#" />
+                    </RelativeLayout>
 
 
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
 
 
+                    <LinearLayout
+                        android:id="@+id/actionFoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ddd"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="40dp">
 
-        <View
-            style="@style/divider"
-            android:backgroundTint="#ddd" />
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Drag n drop disini"
+                            android:textColor="#777676" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/foto"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@null" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/cart_layout"
@@ -227,11 +224,12 @@
             android:padding="@dimen/activity_horizontal_margin">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/actionOk"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="Konfirmasi"
+                android:text="OK"
                 app:backgroundTint="#FF5722" />
 
         </LinearLayout>

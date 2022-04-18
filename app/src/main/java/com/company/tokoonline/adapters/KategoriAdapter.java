@@ -1,6 +1,8 @@
 package com.company.tokoonline.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +13,29 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.company.tokoonline.DetailActivity;
+import com.company.tokoonline.KategoriActivity;
 import com.company.tokoonline.R;
+import com.company.tokoonline.models.KategoriItem;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.ViewHolder> {
 
-    int[] images = {R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a};
-    String[] food_items = {"prawan", "awadhi_lucknow_biryani", "eggwraps", "chips", "mayonnaise", "companin", "mixvegwrap"};
-    private Activity activity;
+    private Context activity;
+    List<KategoriItem> kategoriItemList;
 
-
-    public KategoriAdapter(Activity activity) {
+    public KategoriAdapter(Context activity, List<KategoriItem> kategoriItemList) {
         this.activity = activity;
+        this.kategoriItemList = kategoriItemList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_terkini, viewGroup, false);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.item_kategori, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -35,21 +43,26 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(KategoriAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.imageView.setImageResource(images[position]);
-        viewHolder.txtview.setText(food_items[position].toUpperCase());
+        KategoriItem kategoriItem = kategoriItemList.get(position);
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        Picasso.with(activity).load( kategoriItem.kategori_gambar ).into( viewHolder.imageView );
+        viewHolder.txtview.setText( kategoriItem.kategori_judul );
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(v.getContext(), KategoriActivity.class);
+                myIntent.putExtra("key", kategoriItem.kategori_judul); //Optional parameters
+                v.getContext().startActivity(myIntent);
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return kategoriItemList.size();
     }
 
     /**

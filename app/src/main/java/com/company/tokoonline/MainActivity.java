@@ -1,33 +1,61 @@
 package com.company.tokoonline;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.graphics.Color;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
-import com.company.tokoonline.adapters.SliderAdapter;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.company.tokoonline.adapters.SliderImageAdapter;
 import com.company.tokoonline.adapters.TerkiniAdapter;
 import com.company.tokoonline.adapters.KategoriAdapter;
 import com.company.tokoonline.adapters.RekomendasiAdapter;
-import com.company.tokoonline.models.SliderItem;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import com.company.tokoonline.admin.AdminDashboard;
+import com.company.tokoonline.config.AppController;
+import com.company.tokoonline.config.Config;
+import com.company.tokoonline.config.PicassoImageLoadingService;
+import com.company.tokoonline.models.BarangItem;
+import com.company.tokoonline.models.KategoriItem;
+import com.company.tokoonline.models.SlideItem;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ss.com.bannerslider.ImageLoadingService;
+import ss.com.bannerslider.Slider;
+import ss.com.bannerslider.adapters.SliderAdapter;
+import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
-    SliderView sliderView;
+    private Slider slider;
     private SliderAdapter adapter;
     private RecyclerView recyleviewTerkini;
     private RecyclerView recyleviewKategori;
@@ -36,90 +64,293 @@ public class MainActivity extends AppCompatActivity {
     private KategoriAdapter kategoriAdapter;
     private RekomendasiAdapter rekomendasiAdapter;
 
+    private Context context;
+    private SharedPreferences sharedpreferences;
+    private SwipeRefreshLayout swipeRefresh;
+
+    ProgressDialog dialog;
+
+    private LinearLayout empty_view;
+    private LinearLayout layout_main;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        sliderView = findViewById(R.id.imageSlider);
+        context = MainActivity.this;
+        sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setCancelable(false);
+
+        empty_view = findViewById(R.id.empty_view);
+        layout_main = findViewById(R.id.layout_main);
 
 
-        adapter = new SliderAdapter(this);
-        sliderView.setSliderAdapter(adapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.setIndicatorSelectedColor(Color.WHITE);
-        sliderView.setIndicatorUnselectedColor(Color.GRAY);
-        sliderView.setScrollTimeInSec(3);
-        sliderView.setAutoCycle(true);
-        sliderView.startAutoCycle();
+        ImageView pesanan = findViewById(R.id.pesanan);
+        ImageView akun = findViewById(R.id.akun);
+        ImageView cart = findViewById(R.id.cart);
+        ImageView cari = findViewById(R.id.cari);
 
+        pesanan.setOnClickListener(v -> {
 
-        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
-            @Override
-            public void onIndicatorClicked(int position) {
-                Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition());
-            }
+            Intent myIntent = new Intent(v.getContext(), PesananActivity.class);
+            startActivity(myIntent);
+        });
+
+        akun.setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), AkunActivity.class);
+            startActivity(myIntent);
+
+        });
+
+        cart.setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), CartActivity.class);
+            startActivity(myIntent);
+        });
+
+        cari.setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), PencarianActivity.class);
+            startActivity(myIntent);
+
         });
 
 
-        renewItems();
+
+        ImageView admin = findViewById(R.id.admin);
+        admin.setVisibility(View.GONE);
+
+        String level = sharedpreferences.getString("level","");
+        if( level.equalsIgnoreCase("penjual") ){
+            admin.setVisibility(View.VISIBLE);
+            cari.setVisibility(View.GONE);
+            pesanan.setVisibility(View.GONE);
+        }
+
+        admin.setOnClickListener(v -> {
+
+            Intent myIntent = new Intent(v.getContext(), AdminDashboard.class);
+            v.getContext().startActivity(myIntent);
+
+        });
 
 
 
-
-
-
-
-
-
+        slider = findViewById(R.id.banner);
         recyleviewTerkini = findViewById(R.id.recyle_view0);
         recyleviewKategori = findViewById(R.id.recyle_view1);
         recyleviewRekomendasi = findViewById(R.id.recyle_view2);
 
-        recyleviewTerkini.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) );
-        terkiniAdapter = new TerkiniAdapter(this);
-        recyleviewTerkini.setAdapter(terkiniAdapter);
 
-        recyleviewKategori.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) );
-        kategoriAdapter = new KategoriAdapter(this);
-        recyleviewKategori.setAdapter(kategoriAdapter);
 
-        recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(this, 2) );
-        rekomendasiAdapter = new RekomendasiAdapter(this);
-        recyleviewRekomendasi.setAdapter(rekomendasiAdapter);
+        slider.init(new PicassoImageLoadingService(this));
+
+
+        new getDataHome().execute();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(() -> {
+            new getDataHome().execute();
+
+            swipeRefresh.setRefreshing(false);
+        });
 
     }
 
-    public void renewItems() {
-        List<SliderItem> sliderItemList = new ArrayList<>();
-        //dummy data
-        for (int i = 0; i < 5; i++) {
-            SliderItem sliderItem = new SliderItem();
-            sliderItem.setDescription("Slider Item " + i);
-            if (i % 2 == 0) {
-                sliderItem.setImageUrl("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-            } else {
-                sliderItem.setImageUrl("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+
+
+
+
+
+
+
+    private class getDataHome extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+
+                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+                String uid = sharedpreferences.getString("uid", "");
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/home?uid="+uid, response -> {
+                    Log.e("VOLLEY", response);
+                    dialog.dismiss();
+                    layout_main.setVisibility(View.VISIBLE);
+                    try {
+
+                        final JSONObject req = new JSONObject(response);
+
+                        if( req.getBoolean("success") ) {
+
+                            /**
+                             * SET DATA PROMO
+                             */
+
+                            final List<SlideItem> sliders = new ArrayList();
+                            JSONArray promoJsonArray = req.getJSONArray("promo");
+                            for(int a=0; a<promoJsonArray.length() ;a++){
+                                JSONObject promo = promoJsonArray.getJSONObject(a);
+                                sliders.add(new SlideItem(
+                                        promo.getInt("promo_id"),
+                                        promo.getString("promo_gambar"),
+                                        promo.getString("promo_link")));
+                            }
+
+                            slider.setAdapter(new SliderImageAdapter(context,sliders));
+                            if(slider.getAdapter() != null && slider.getAdapter().getItemCount() > 1){
+                                slider.setInterval(10000);
+                            }
+                            slider.setOnSlideClickListener(position -> {
+
+                                String link = sliders.get(position).slider_link;
+                                if(!TextUtils.isEmpty(link) ){
+                                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse( link )));
+                                }
+                            });
+
+
+
+
+                            /**
+                             * SET DATA TERKINI
+                             */
+                            final List<BarangItem> barangItemList = new ArrayList();
+                            JSONArray barangItemArray= req.getJSONArray("terkini");
+                            for(int a=0; a<barangItemArray.length() ;a++){
+                                JSONObject terkini = barangItemArray.getJSONObject(a);
+                                barangItemList.add(new BarangItem(
+                                        terkini.getInt("barang_id"),
+                                        terkini.getString("barang_judul"),
+                                        terkini.getString("barang_katerangan"),
+                                        terkini.getString("barang_kategori"),
+                                        terkini.getString("barang_variasi"),
+                                        terkini.getString("barang_ukuran"),
+                                        terkini.getInt("barang_berat"),
+                                        terkini.getInt("barang_stok"),
+                                        terkini.getInt("barang_harga"),
+                                        terkini.getInt("barang_diskon"),
+                                        terkini.getInt("barang_terjual"),
+                                        terkini.getString("barang_gambar"),
+                                        terkini.getString("barang_tanggal"),
+                                        terkini.getString("barang_tanggal_diubah"),
+                                        terkini.getString("barang_status")
+                                ));
+                            }
+
+                            recyleviewTerkini.setLayoutManager( new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) );
+                            terkiniAdapter = new TerkiniAdapter(context, barangItemList);
+                            recyleviewTerkini.setAdapter(terkiniAdapter);
+
+                            /**
+                             * SET DATA KETEGORI
+                             */
+                            final List<KategoriItem> kategoriItemList = new ArrayList();
+                            JSONArray kategoriItemArray= req.getJSONArray("kategori");
+                            for(int a=0; a<kategoriItemArray.length() ;a++){
+                                JSONObject promo = kategoriItemArray.getJSONObject(a);
+                                kategoriItemList.add(new KategoriItem(
+                                        promo.getInt("kategori_id"),
+                                        promo.getString("kategori_judul"),
+                                        promo.getString("kategori_parent"),
+                                        promo.getString("kategori_gambar"),
+                                        promo.getString("kategori_status")
+                                ));
+                            }
+
+                            recyleviewKategori.setLayoutManager( new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) );
+                            kategoriAdapter = new KategoriAdapter(context, kategoriItemList);
+                            recyleviewKategori.setAdapter(kategoriAdapter);
+
+                            /**
+                             * SET DATA REKOMENDASI
+                             */
+                            final List<BarangItem> barangRekomendasiItemList = new ArrayList();
+                            JSONArray barangRekomendasiItemArray = req.getJSONArray("rekomendasi");
+                            for(int a=0; a<barangRekomendasiItemArray.length() ;a++){
+                                JSONObject rekomendasi = barangRekomendasiItemArray.getJSONObject(a);
+                                barangRekomendasiItemList.add(new BarangItem(
+                                        rekomendasi.getInt("barang_id"),
+                                        rekomendasi.getString("barang_judul"),
+                                        rekomendasi.getString("barang_katerangan"),
+                                        rekomendasi.getString("barang_kategori"),
+                                        rekomendasi.getString("barang_variasi"),
+                                        rekomendasi.getString("barang_ukuran"),
+                                        rekomendasi.getInt("barang_berat"),
+                                        rekomendasi.getInt("barang_stok"),
+                                        rekomendasi.getInt("barang_harga"),
+                                        rekomendasi.getInt("barang_diskon"),
+                                        rekomendasi.getInt("barang_terjual"),
+                                        rekomendasi.getString("barang_gambar"),
+                                        rekomendasi.getString("barang_tanggal"),
+                                        rekomendasi.getString("barang_tanggal_diubah"),
+                                        rekomendasi.getString("barang_status")
+                                ));
+                            }
+                            recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );
+                            rekomendasiAdapter = new RekomendasiAdapter(context, barangRekomendasiItemList);
+                            recyleviewRekomendasi.setAdapter(rekomendasiAdapter);
+
+
+
+
+
+                        }else{
+                        }
+                    } catch (Exception e) {
+                       Log.e("VOLLEY","Authentication error: " + e.getMessage());
+
+                    }
+                }, error -> {
+                    Log.e("VOLLEY", error.toString());
+
+                });
+
+
+
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                requestQueue.add(stringRequest);
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            sliderItemList.add(sliderItem);
+
+            return true;
         }
-        adapter.renewItems(sliderItemList);
+
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            empty_view.setVisibility(View.GONE);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            empty_view.setVisibility(View.VISIBLE);
+            layout_main.setVisibility(View.GONE);
+
+            dialog.show();
+        }
     }
 
-    public void removeLastItem(View view) {
-        if (adapter.getCount() - 1 >= 0)
-            adapter.deleteItem(adapter.getCount() - 1);
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
-
-    public void addNewItem(View view) {
-        SliderItem sliderItem = new SliderItem();
-        sliderItem.setDescription("Slider Item Added Manually");
-        sliderItem.setImageUrl("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-        adapter.addItem(sliderItem);
-    }
-
-
 }
