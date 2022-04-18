@@ -94,35 +94,30 @@ public class MainActivity extends AppCompatActivity {
         ImageView akun = findViewById(R.id.akun);
         ImageView cart = findViewById(R.id.cart);
         ImageView cari = findViewById(R.id.cari);
-        ImageView pesan = findViewById(R.id.cari);
 
         pesanan.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), PesananActivity.class);
-            v.getContext().startActivity(myIntent);
+            startActivity(myIntent);
         });
 
         akun.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), AkunActivity.class);
-            v.getContext().startActivity(myIntent);
+            startActivity(myIntent);
 
         });
 
         cart.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), CartActivity.class);
-            v.getContext().startActivity(myIntent);
+            startActivity(myIntent);
         });
 
         cari.setOnClickListener(v -> {
 
             Intent myIntent = new Intent(v.getContext(), PencarianActivity.class);
-            v.getContext().startActivity(myIntent);
-
-        });
-
-        pesan.setOnClickListener(v -> {
+            startActivity(myIntent);
 
         });
 

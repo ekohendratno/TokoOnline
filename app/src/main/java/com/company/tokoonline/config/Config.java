@@ -10,7 +10,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Config {
-    public static String restapi = "https://toko1.kopas.id";
+    public static String restapi = "http://192.168.10.248/tokoonline-api";//https://toko1.kopas.id";
 
     public static String formatRupiah(int number){
         Locale localeID = new Locale("in", "ID");
