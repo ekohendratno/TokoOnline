@@ -48,12 +48,13 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     public void onBindViewHolder(PesananAdapter.ViewHolder viewHolder, int position) {
         TransaksiItem transaksiItem = transaskiItemList.get(position);
 
-        viewHolder.harga.setText( Config.formatRupiah( transaksiItem.transaksi_harga_total) );
+        viewHolder.harga.setText( Config.formatRupiah( transaksiItem.transaksi_total_bayar) );
+
+        BarangItem barangItem = transaksiItem.barangItemList.get(0);
+
         viewHolder.beli.setText( "x"+transaksiItem.transaksi_jumlah );
-
-        Picasso.with(activity).load( transaksiItem.barang_gambar ).into( viewHolder.imageView );
-        viewHolder.txtview.setText( transaksiItem.barang_judul );
-
+        Picasso.with(activity).load( barangItem.barang_gambar ).into( viewHolder.imageView );
+        viewHolder.txtview.setText( barangItem.barang_judul );
 
 
         if( transaksiItem.transaksi_status.equalsIgnoreCase("Pending") ){

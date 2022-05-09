@@ -68,8 +68,6 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.View
     public void onBindViewHolder(KeranjangAdapter.ViewHolder viewHolder, int position) {
         KeranjangItem keranjangItem = keranjangItemList.get(position);
 
-
-
         viewHolder.id.setOnClickListener(v -> {
             int jumlah = Integer.parseInt( viewHolder.edit_jumlah_beli.getText().toString() );
 
@@ -104,11 +102,22 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.View
         int s = keranjangItem.barang_stok;
 
         if( s >= 1 ){
+            viewHolder.stok.setText("Tersedia "+s+" barang");
+
+            viewHolder.id.setEnabled(true);
             viewHolder.edit_jumlah_beli.setText( String.valueOf(keranjangItem.keranjang_jumlah) );
+
+            if( keranjangItem.keranjang_jumlah > s ){
+                viewHolder.edit_jumlah_beli.setText( String.valueOf(s) );
+            }
 
             viewHolder.action_jumlah_beli_min.setEnabled(true);
             viewHolder.action_jumlah_beli_plus.setEnabled(true);
         }else{
+            viewHolder.stok.setText("Stok habis");
+
+
+            viewHolder.id.setEnabled(false);
             viewHolder.edit_jumlah_beli.setText( "0" );
 
             viewHolder.action_jumlah_beli_min.setEnabled(false);
@@ -166,6 +175,7 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.View
         private ImageView imageView;
         private TextView txtview;
         private TextView harga;
+        private TextView stok;
         private AppCompatImageView action_jumlah_beli_plus;
         private AppCompatImageView action_jumlah_beli_min;
         private AppCompatEditText edit_jumlah_beli;
@@ -181,6 +191,7 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.View
             id = view.findViewById(R.id.id);
             id.setClickable(true);
 
+            stok = view.findViewById(R.id.stok);
             harga = view.findViewById(R.id.harga);
             action_jumlah_beli_plus = view.findViewById(R.id.action_jumlah_beli_plus);
             action_jumlah_beli_min = view.findViewById(R.id.action_jumlah_beli_min);

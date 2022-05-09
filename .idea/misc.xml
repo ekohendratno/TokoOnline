@@ -3,18 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/SweetAlert/src/main/res/drawable/blue_button_background.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/SweetAlert/src/main/res/drawable/dialog_background.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/SweetAlert/src/main/res/layout/alert_dialog.xml" value="0.33" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/background1.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/bg_sidebar_header.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/circle.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/circle_shape.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/edittext_style1.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_arrow_back.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_baseline_add_shopping_cart_24.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_baseline_notifications_none_24.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_close_outline.xml" value="0.2128205128205128" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/ic_outline_info_24.xml" value="0.2128205128205128" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/selected_slide_indicator.xml" value="0.9642857142857143" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/drawable/unselected_slide_indicator.xml" value="0.21614583333333334" />
-        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_akun.xml" value="0.33" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_akun.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_checkout.xml" value="0.22" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_checkout_multi.xml" value="0.2" />
@@ -22,10 +28,10 @@
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_kategori.xml" value="0.2" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_konfirmasi.xml" value="0.22" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_payment.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_pencarian.xml" value="0.22" />
-        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_pesanan.xml" value="0.2" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_pesanan.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_pesanan_detail.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/activity_start.xml" value="0.1" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/admin_bank.xml" value="0.2" />
@@ -52,6 +58,7 @@
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_rekomendasi.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_slider.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_terbaru.xml" value="0.2" />
+        <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_terkait.xml" value="0.5" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_terkini.xml" value="0.25" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/item_tkategori.xml" value="0.2" />
         <entry key="..\:/Users/koding/AndroidStudioProjects/TokoOnline/app/src/main/res/layout/layout_empty.xml" value="0.1859375" />

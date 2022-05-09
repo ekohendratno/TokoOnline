@@ -106,6 +106,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <RelativeLayout
+                    android:background="#32B6AA"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/detail_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/detail_icon"
+                        android:text="Pesanan ini menunggu dibayar oleh Pembeli"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:id="@+id/detail_icon"
+                        android:src="@drawable/ic_baseline_payment_24"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:tint="#ffffff" />
+
+                </RelativeLayout>
+                <View
+                    style="@style/divider"
+                    android:backgroundTint="#ddd" />
+
                 <LinearLayout
                     android:background="#ffffff"
                     android:orientation="vertical"
@@ -146,8 +178,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_view0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                    <include layout="@layout/item_checkout"/>
+                    <include layout="@layout/item_checkout" android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -173,7 +209,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nomor Pesanan"/>
+                            android:text="Nomor Pesanan" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/nota"
@@ -208,6 +244,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/waktu_pembayaran_lyt"
                         android:layout_marginTop="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -231,6 +268,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/waktu_pengiriman_lyt"
                         android:layout_marginTop="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -254,6 +292,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/waktu_pesanan_selesai_lyt"
                         android:layout_marginTop="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -268,6 +307,30 @@
 
                         <TextView
                             android:id="@+id/waktu_pesanan_selesai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="#777676" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/waktu_pesanan_batal_lyt"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/waktu_pesanan_batal"
+                            android:text="Waktu Pesanan Dibatalkan"
+                            android:textColor="#777676" />
+
+                        <TextView
+                            android:id="@+id/waktu_pesanan_batal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -354,14 +417,14 @@
                             android:text="-"/>
 
                         <TextView
-                            android:layout_weight="2"
                             android:id="@+id/noresi_copy"
-                            android:layout_alignParentRight="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_weight="2"
                             android:padding="4dp"
-                            android:textColor="#4CAF50"
-                            android:text="SALIN"/>
+                            android:text="SALIN"
+                            android:textColor="#4CAF50" />
                     </RelativeLayout>
 
                 </LinearLayout>

@@ -42,6 +42,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class KonfirmasiActivity extends AppCompatActivity {
 
     private int key;
@@ -51,6 +53,8 @@ public class KonfirmasiActivity extends AppCompatActivity {
 
     ImageView foto;
     TextView tv_nota;
+
+    private SweetAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,10 @@ public class KonfirmasiActivity extends AppCompatActivity {
         Intent intent = getIntent();
         key = intent.getIntExtra("key",0);
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.setTitleText( "Loading. Please wait..." );
+
 
         foto = findViewById(R.id.foto);
         tv_nota = findViewById(R.id.nota);
@@ -85,7 +93,7 @@ public class KonfirmasiActivity extends AppCompatActivity {
         });
 
 
-        new getDataPesananDetail().execute();
+        getDataPesananDetail();
     }
 
 
@@ -296,65 +304,52 @@ public class KonfirmasiActivity extends AppCompatActivity {
 
 
 
-    private class getDataPesananDetail extends AsyncTask<String, Void, Boolean> {
+    private void getDataPesananDetail() {
+        dialog.show();
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/pesanan_detail?uid="+uid+"&key="+key, response -> {
+            Log.e("VOLLEY", response);
+            dialog.dismiss();
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                String uid = sharedpreferences.getString("uid", "");
+                if( req.getBoolean("success") ) {
+                    JSONObject jsonObject = req.getJSONObject("response");
+                    tv_nota.setText("#"+jsonObject.getString("transaksi_nota"));
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/pesanan_detail?uid="+uid+"&key="+key, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
+                    Picasso.with( context ).load( jsonObject.getString("transaksi_strukbukti") ).into( foto );
 
-                        final JSONObject req = new JSONObject(response);
+                }else{
+                }
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
 
-                        if( req.getBoolean("success") ) {
-                            JSONObject jsonObject = req.getJSONObject("response");
-                            tv_nota.setText("#"+jsonObject.getString("transaksi_nota"));
-
-                            Picasso.with( context ).load( jsonObject.getString("transaksi_strukbukti") ).into( foto );
-
-                        }else{
-                        }
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                });
-
-
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
             }
+        }, error -> {
+            dialog.dismiss();
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
+            Log.e("VOLLEY", error.toString());
+
+        });
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 
     @Override

@@ -52,6 +52,17 @@
                     app:tint="#C4C4C4" />
 
                 <ImageView
+                    android:id="@+id/cari"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_search_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
                     android:id="@+id/actionBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,7 +89,6 @@
 
 
         <com.google.android.material.tabs.TabLayout
-            android:visibility="gone"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,24 +97,31 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
+            app:tabPaddingStart="24dp"
+            app:tabPaddingEnd="24dp"
 
             android:layout_toRightOf="@+id/actionBack"
             android:background="#ffffff"
             android:elevation="0dp"
             app:tabGravity="center"
-            app:tabIconTint="#353535"
-            app:tabIndicatorColor="#353535"
+            app:tabIconTint="#FF5722"
+            app:tabIndicatorColor="#FF5722"
             app:tabIndicatorHeight="1dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="#353535"
+            app:tabSelectedTextColor="#FF5722"
             app:tabTextAppearance="@style/tab_text"
-            app:tabTextColor="#AAAAAA">
+            app:tabTextColor="#000">
 
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Belum Bayar" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diperiksa" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
@@ -120,6 +137,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Selesai" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dibatalkan" />
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -159,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <include layout="@layout/layout_empty"/>
+                    <include layout="@layout/layout_empty" android:visibility="gone" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycle_view0"
                         android:layout_width="match_parent"

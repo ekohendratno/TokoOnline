@@ -37,6 +37,7 @@ public class PaymentActivity extends AppCompatActivity {
     private SharedPreferences sharedpreferences;
 
 
+    TextView tv_unik;
     TextView tv_nota;
     TextView tv_harga_total_pembayaran;
 
@@ -59,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
 
+        tv_unik = findViewById(R.id.unik);
         tv_nota = findViewById(R.id.nota);
         tv_harga_total_pembayaran = findViewById(R.id.harga_total_pembayaran);
 
@@ -196,7 +198,8 @@ public class PaymentActivity extends AppCompatActivity {
                             JSONObject jsonObject = req.getJSONObject("response");
 
                             tv_nota.setText("#"+jsonObject.getString("transaksi_nota") );
-                            tv_harga_total_pembayaran.setText(  Config.formatRupiah( jsonObject.getInt("transaksi_harga_total") ) );
+                            tv_unik.setText(jsonObject.getString("transaksi_unik") );
+                            tv_harga_total_pembayaran.setText(  Config.formatRupiah( jsonObject.getInt("transaksi_total_bayar") ) );
 
                         }else{
                         }

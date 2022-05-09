@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -23,6 +24,7 @@ import com.company.tokoonline.adapters.KeranjangAdapter;
 import com.company.tokoonline.config.AppController;
 import com.company.tokoonline.config.Config;
 import com.company.tokoonline.models.KeranjangItem;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +32,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -41,6 +45,10 @@ public class CartActivity extends AppCompatActivity {
     private static KeranjangAdapter cartAdapter;
 
     static AppCompatTextView harga_total_pembayaran;
+
+    TabLayout tabLayout;
+
+    private SweetAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,8 @@ public class CartActivity extends AppCompatActivity {
 
         }
 
+        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.setTitleText( "Loading. Please wait..." );
 
         recyclerView = findViewById(R.id.recycle_view0);
         recyclerView.setLayoutManager( new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) );
@@ -74,169 +84,188 @@ public class CartActivity extends AppCompatActivity {
         });
 
 
-        new getDataKeranjang().execute();
+        getDataKeranjang("Semua");
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(() -> {
-            new getDataKeranjang().execute();
+            getDataKeranjang("Semua");
 
             swipeRefresh.setRefreshing(false);
         });
 
 
+        tabLayout = findViewById(R.id.tabs);
+
+        ViewGroup.LayoutParams params = tabLayout.getLayoutParams();
+        params.height = 80;
+        tabLayout.setLayoutParams(params);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                Log.e("p", String.valueOf(tab.getPosition()));
+
+                if (tab.getPosition() == 1) {
+                    getDataKeranjang("Diskon");
+                }else if (tab.getPosition() == 2) {
+                    getDataKeranjang("BeliLagi");
+                }else{
+                    getDataKeranjang("Semua");
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
 
-    public class getDataKeranjang extends AsyncTask<String, Void, Boolean> {
+    public void getDataKeranjang(String status) {
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        harga_total_pembayaran.setText("Rp 0");
+        dialog.show();
+
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/keranjang?uid="+uid+"&status="+status, response -> {
+            Log.e("VOLLEY", response);
+            dialog.dismiss();
+
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                String uid = sharedpreferences.getString("uid", "");
+                if( req.getBoolean("success") ) {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/keranjang?uid="+uid, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
+                    final List<KeranjangItem> keranjangItemList = new ArrayList();
+                    JSONArray keranjangItemArray= req.getJSONArray("response");
+                    for(int a=0; a<keranjangItemArray.length() ;a++){
+                        JSONObject keranjang = keranjangItemArray.getJSONObject(a);
+                        keranjangItemList.add(new KeranjangItem(
+                                keranjang.getInt("barang_id"),
+                                keranjang.getString("barang_judul"),
+                                keranjang.getString("barang_gambar"),
+                                keranjang.getInt("barang_harga"),
+                                keranjang.getInt("barang_stok"),
 
-                        final JSONObject req = new JSONObject(response);
+                                keranjang.getInt("keranjang_id"),
+                                keranjang.getInt("keranjang_jumlah")
+                        ));
+                    }
 
-                        if( req.getBoolean("success") ) {
 
-                            final List<KeranjangItem> keranjangItemList = new ArrayList();
-                            JSONArray keranjangItemArray= req.getJSONArray("response");
-                            for(int a=0; a<keranjangItemArray.length() ;a++){
-                                JSONObject keranjang = keranjangItemArray.getJSONObject(a);
-                                keranjangItemList.add(new KeranjangItem(
-                                        keranjang.getInt("barang_id"),
-                                        keranjang.getString("barang_judul"),
-                                        keranjang.getString("barang_gambar"),
-                                        keranjang.getInt("barang_harga"),
-                                        keranjang.getInt("barang_stok"),
+                    List<KeranjangItem> currentSelectedItems = new ArrayList<>();
+                    cartAdapter = new KeranjangAdapter(context, keranjangItemList, new KeranjangAdapter.OnItemCheckListener() {
+                        @Override
+                        public void onItemCheck(KeranjangItem item, int beli) {
 
-                                        keranjang.getInt("keranjang_id"),
-                                        keranjang.getInt("keranjang_jumlah")
-                                ));
+                            item.setJumlah(beli);
+                            currentSelectedItems.add(item);
+
+                            int total_bayar = 0;
+
+                            for(int a=0; a<currentSelectedItems.size() ;a++){
+                                KeranjangItem keranjangItem = currentSelectedItems.get(a);
+
+                                int harga = keranjangItem.barang_harga;
+
+                                total_bayar += harga*beli;
+
                             }
 
+                            //harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
 
-                            List<KeranjangItem> currentSelectedItems = new ArrayList<>();
-                            cartAdapter = new KeranjangAdapter(context, keranjangItemList, new KeranjangAdapter.OnItemCheckListener() {
-                                @Override
-                                public void onItemCheck(KeranjangItem item, int beli) {
-
-                                    item.setJumlah(beli);
-                                    currentSelectedItems.add(item);
-
-                                    int total_bayar = 0;
-
-                                    for(int a=0; a<currentSelectedItems.size() ;a++){
-                                        KeranjangItem keranjangItem = currentSelectedItems.get(a);
-
-                                        int harga = keranjangItem.barang_harga;
-
-                                        total_bayar += harga*beli;
-
-                                    }
-
-                                    harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
-
-                                }
-
-                                @Override
-                                public void onItemUncheck(KeranjangItem item, int beli) {
-
-                                    item.setJumlah(beli);
-                                    currentSelectedItems.remove(item);
-
-                                    int total_bayar = 0;
-
-                                    for(int a=0; a<currentSelectedItems.size() ;a++){
-                                        KeranjangItem keranjangItem = currentSelectedItems.get(a);
-
-                                        int harga = keranjangItem.barang_harga;
-
-                                        total_bayar += harga*beli;
-
-                                    }
-
-                                    harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
-                                }
-
-                                @Override
-                                public void onItemJumlah(KeranjangItem item, int beli) {
-                                    item.setJumlah(beli);
-
-                                    int total_bayar = 0;
-                                    for(int a=0; a<currentSelectedItems.size() ;a++){
-                                        KeranjangItem keranjangItem = currentSelectedItems.get(a);
-
-                                        int harga = keranjangItem.barang_harga;
-
-                                        total_bayar += harga*beli;
-                                    }
-
-                                    harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
-                                }
-
-                            });
-                            recyclerView.setAdapter(cartAdapter);
-
-
-                            findViewById(R.id.actionCheckout).setOnClickListener(v -> {
-
-
-                                Intent intent = new Intent(v.getContext(), CheckOutMultiActivity.class);
-
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelableArrayList("keranjang", (ArrayList<? extends Parcelable>) currentSelectedItems);
-                                intent.putExtras(bundle);
-
-                                startActivity(intent);
-
-                            });
-
-
-                        }else{
                         }
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
 
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
+                        @Override
+                        public void onItemUncheck(KeranjangItem item, int beli) {
 
-                });
+                            item.setJumlah(beli);
+                            currentSelectedItems.remove(item);
+
+                            int total_bayar = 0;
+
+                            for(int a=0; a<currentSelectedItems.size() ;a++){
+                                KeranjangItem keranjangItem = currentSelectedItems.get(a);
+
+                                int harga = keranjangItem.barang_harga;
+
+                                total_bayar += harga*beli;
+
+                            }
+
+                            //harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
+                        }
+
+                        @Override
+                        public void onItemJumlah(KeranjangItem item, int beli) {
+                            item.setJumlah(beli);
+
+                            int total_bayar = 0;
+                            for(int a=0; a<currentSelectedItems.size() ;a++){
+                                KeranjangItem keranjangItem = currentSelectedItems.get(a);
+
+                                int harga = keranjangItem.barang_harga;
+
+                                total_bayar += harga*beli;
+                            }
+
+                            //harga_total_pembayaran.setText( Config.formatRupiah( total_bayar ) );
+                        }
+
+                    });
+                    recyclerView.setAdapter(cartAdapter);
 
 
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
+                    findViewById(R.id.actionCheckout).setOnClickListener(v -> {
 
 
+                        Intent intent = new Intent(v.getContext(), CheckOutMultiActivity.class);
 
-            }catch (Exception e){
-                e.printStackTrace();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("keranjang", (ArrayList<? extends Parcelable>) currentSelectedItems);
+                        intent.putExtras(bundle);
+
+                        startActivity(intent);
+
+                    });
+
+
+                }else{
+                }
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
+
             }
+        }, error -> {
+            dialog.dismiss();
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+            Log.e("VOLLEY", error.toString());
+
+        });
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-            harga_total_pembayaran.setText("Rp 0");
-        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 
 

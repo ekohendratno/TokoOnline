@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class CheckOutActivity extends AppCompatActivity {
 
     private String uid;
@@ -55,7 +57,8 @@ public class CheckOutActivity extends AppCompatActivity {
     TextView tv_harga_total_pembayaran2;
     EditText et_catatan;
 
-    ProgressDialog dialog;
+
+    private SweetAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +73,8 @@ public class CheckOutActivity extends AppCompatActivity {
 
         uid = sharedpreferences.getString("uid","");
 
-
-        dialog = new ProgressDialog(context);
-        dialog.setMessage("Loading. Please wait...");
-        dialog.setCancelable(false);
+        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.setTitleText( "Loading. Please wait..." );
 
         if( TextUtils.isEmpty(uid) ){
 
@@ -122,173 +123,151 @@ public class CheckOutActivity extends AppCompatActivity {
 
         findViewById(R.id.actionCheckout).setOnClickListener(v -> {
 
-            new sendDataCheckout().execute();
+            sendDataCheckout();
 
         });
 
 
-        new getDataProdukDetail().execute();
+        getDataProdukDetail();
     }
 
 
 
-    private class getDataProdukDetail extends AsyncTask<String, Void, Boolean> {
+    private void getDataProdukDetail(){
+        dialog.show();
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/detail?uid="+uid+"&key="+key, response -> {
+            Log.e("VOLLEY", response);
+            dialog.dismiss();
+
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                String uid = sharedpreferences.getString("uid", "");
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/detail?uid="+uid+"&key="+key, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
-
-                        final JSONObject req = new JSONObject(response);
-
-                        if( req.getBoolean("success") ) {
-                            JSONObject jsonObject = req.getJSONObject("response");
+                if( req.getBoolean("success") ) {
+                    JSONObject jsonObject = req.getJSONObject("response");
 
 
-                            String barang_gambar = jsonObject.getString("barang_gambar");
-                            harga = jsonObject.getInt("barang_harga");
-                            int total = beli*harga;
+                    String barang_gambar = jsonObject.getString("barang_gambar");
+                    harga = jsonObject.getInt("barang_harga");
+                    int total = beli*harga;
 
 
-                            tv_txtview.setText( jsonObject.getString("barang_judul") );
-                            tv_beli.setText( "x"+beli );
-                            tv_harga.setText( String.valueOf( total ) );
-                            Picasso.with(context).load( barang_gambar ).into( imageview );
+                    tv_txtview.setText( jsonObject.getString("barang_judul") );
+                    tv_beli.setText( "x"+beli );
+                    tv_harga.setText( String.valueOf( total ) );
+                    Picasso.with(context).load( barang_gambar ).into( imageview );
 
 
-                            ongkir = jsonObject.getInt("barang_ongkir");
-                            harga_total = ongkir+total;
+                    ongkir = jsonObject.getInt("barang_ongkir");
+                    harga_total = ongkir+total;
 
-                            tv_ongkir.setText( Config.formatRupiah( ongkir) );
-                            tv_harga_subtotal_produk.setText( Config.formatRupiah( total) );
-                            tv_harga_subtotal_pengiriman.setText( Config.formatRupiah( harga_total) );
-                            tv_harga_total_pembayaran.setText( Config.formatRupiah( harga_total) );
-                            tv_harga_total_pembayaran2.setText( Config.formatRupiah( harga_total) );
-
-
-                        }else{
-                        }
+                    tv_ongkir.setText( Config.formatRupiah( ongkir) );
+                    tv_harga_subtotal_produk.setText( Config.formatRupiah( total) );
+                    tv_harga_subtotal_pengiriman.setText( Config.formatRupiah( harga_total) );
+                    tv_harga_total_pembayaran.setText( Config.formatRupiah( harga_total) );
+                    tv_harga_total_pembayaran2.setText( Config.formatRupiah( harga_total) );
 
 
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                });
+                }else{
+                }
 
 
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
 
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
             }
+        }, error -> {
+            dialog.dismiss();
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
+            Log.e("VOLLEY", error.toString());
+
+        });
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
+
     }
 
 
-    private class sendDataCheckout extends AsyncTask<String, Void, Boolean> {
+    private void sendDataCheckout(){
+        dialog.show();
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.restapi + "/api/checkout?uid="+uid+"&key="+key, response -> {
+            Log.e("VOLLEY", response);
+            dialog.dismiss();
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                String uid = sharedpreferences.getString("uid", "");
+                if( req.getBoolean("success") ) {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.restapi + "/api/checkout?uid="+uid+"&key="+key, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
+                    Intent myIntent = new Intent(context, PaymentActivity.class);
+                    myIntent.putExtra("key", req.getInt("key"));
+                    startActivity(myIntent);
+                    finish();
 
-                        final JSONObject req = new JSONObject(response);
+                }
 
-                        if( req.getBoolean("success") ) {
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
 
-                            Intent myIntent = new Intent(context, PaymentActivity.class);
-                            myIntent.putExtra("key", req.getInt("key"));
-                            startActivity(myIntent);
-                            finish();
-
-                        }
-
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-
-                        Map<String, String> params = new HashMap<>();
-                        params.put("harga", String.valueOf(harga));
-                        params.put("harga_total", String.valueOf(harga_total));
-                        params.put("ongkir", String.valueOf(ongkir));
-                        params.put("beli", String.valueOf(beli));
-                        params.put("catatan", et_catatan.getText().toString());
-
-                        return params;
-                    }
-                };
-
-
-
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
             }
+        }, error -> {
+            dialog.dismiss();
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
+            Log.e("VOLLEY", error.toString());
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("harga", String.valueOf(harga));
+                params.put("harga_total", String.valueOf(harga_total));
+                params.put("ongkir", String.valueOf(ongkir));
+                params.put("beli", String.valueOf(beli));
+                params.put("catatan", et_catatan.getText().toString());
+
+                return params;
+            }
+        };
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-        }
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
+
+
     }
 
 

@@ -25,32 +25,49 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin" />
 
             <ImageView
-                android:layout_toRightOf="@+id/id"
                 android:id="@+id/imageview"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_toRightOf="@+id/id"
+                android:adjustViewBounds="true"
+                android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:src="@drawable/baju1" />
 
             <LinearLayout
                 android:id="@+id/layout"
-                android:padding="10dp"
+                android:layout_toLeftOf="@+id/actionHapus"
                 android:layout_toRightOf="@+id/imageview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
+
+                <TextView
+                    android:id="@+id/stok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/qty_lyt"
+                    android:gravity="right"
+                    android:textSize="11dp"
+                    android:text="Tersedia 0 barang"
+                    android:textColor="#FF5722" />
+
                 <TextView
                     android:id="@+id/txtview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:maxLength="35"
                     android:text="Atasan Batik Kombinasi WP 132 Navi MM Baju Blouse Kerja Pria Modern" />
 
                 <RelativeLayout
+                    android:layout_marginBottom="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -60,7 +77,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/qty_lyt"
-                        android:padding="6dp"
                         android:text="Rp 50.000"
                         android:textColor="#FF5722" />
 
@@ -84,16 +100,16 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edit_jumlah_beli"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_style1"
                             android:inputType="number"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
                             android:paddingTop="4dp"
                             android:paddingBottom="4dp"
                             android:text="0"
-                            android:textSize="12dp"
+                            android:textSize="11dp"
                             android:textAlignment="center" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -109,6 +125,20 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/actionHapus"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="?android:selectableItemBackground"
+                android:padding="4dp"
+                android:src="@drawable/ic_baseline_delete_forever_24"
+                app:tint="#F44336" />
 
 
         </RelativeLayout>

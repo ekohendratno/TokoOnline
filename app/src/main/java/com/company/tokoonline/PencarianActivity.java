@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class PencarianActivity extends AppCompatActivity {
 
 
@@ -73,6 +75,9 @@ public class PencarianActivity extends AppCompatActivity {
         }
     };
 
+
+    private SweetAlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +86,11 @@ public class PencarianActivity extends AppCompatActivity {
 
         context = PencarianActivity.this;
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
+
+
+
+        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.setTitleText( "Loading. Please wait..." );
 
         tf_query = findViewById(R.id.tf_query);
         empty_view = findViewById(R.id.empty_view);
@@ -141,6 +151,7 @@ public class PencarianActivity extends AppCompatActivity {
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/produk_bycari?uid="+uid+"&key="+key, response -> {
                     Log.e("VOLLEY", response);
+                    dialog.dismiss();
                     try {
 
                         final JSONObject req = new JSONObject(response);
@@ -230,6 +241,7 @@ public class PencarianActivity extends AppCompatActivity {
         protected void onPreExecute() {
             empty_view.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
+            dialog.show();
         }
     }
 

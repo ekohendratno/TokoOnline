@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import ss.com.bannerslider.Slider;
 import ss.com.bannerslider.adapters.SliderAdapter;
 
@@ -54,6 +55,8 @@ public class KategoriActivity extends AppCompatActivity {
 
     private TextView kategori;
 
+    private SweetAlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,10 @@ public class KategoriActivity extends AppCompatActivity {
         key = getIntent().getStringExtra("key");
         sharedpreferences = getSharedPreferences(Splash.MyPREFERENCES, Context.MODE_PRIVATE);
 
+
+        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        dialog.setTitleText( "Loading. Please wait..." );
+
         kategori = findViewById(R.id.kategori);
         recyleviewRekomendasi = findViewById(R.id.recycle_view0);
 
@@ -71,16 +78,16 @@ public class KategoriActivity extends AppCompatActivity {
 
 
 
-        new getDataKategori().execute();
+        getDataKategori();
 
 
         findViewById(R.id.refresh).setOnClickListener(v->{
-            new getDataKategori().execute();
+            getDataKategori();
         });
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(() -> {
-            new getDataKategori().execute();
+            getDataKategori();
 
             swipeRefresh.setRefreshing(false);
         });
@@ -102,94 +109,82 @@ public class KategoriActivity extends AppCompatActivity {
 
 
 
-    private class getDataKategori extends AsyncTask<String, Void, Boolean> {
+    private void getDataKategori() {
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        dialog.show();
+
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+
+        String uid = sharedpreferences.getString("uid", "");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/produk_bykategori?uid="+uid+"&key="+key, response -> {
+            Log.e("VOLLEY", response);
+            dialog.dismiss();
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                String uid = sharedpreferences.getString("uid", "");
+                if( req.getBoolean("success") ) {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.restapi + "/api/produk_bykategori?uid="+uid+"&key="+key, response -> {
-                    Log.e("VOLLEY", response);
-                    try {
-
-                        final JSONObject req = new JSONObject(response);
-
-                        if( req.getBoolean("success") ) {
-
-                            /**
-                             * SET DATA REKOMENDASI
-                             */
-                            final List<BarangItem> barangRekomendasiItemList = new ArrayList();
-                            JSONArray barangRekomendasiItemArray = req.getJSONArray("response");
-                            for(int a=0; a<barangRekomendasiItemArray.length() ;a++){
-                                JSONObject rekomendasi = barangRekomendasiItemArray.getJSONObject(a);
-                                barangRekomendasiItemList.add(new BarangItem(
-                                        rekomendasi.getInt("barang_id"),
-                                        rekomendasi.getString("barang_judul"),
-                                        rekomendasi.getString("barang_katerangan"),
-                                        rekomendasi.getString("barang_kategori"),
-                                        rekomendasi.getString("barang_variasi"),
-                                        rekomendasi.getString("barang_ukuran"),
-                                        rekomendasi.getInt("barang_berat"),
-                                        rekomendasi.getInt("barang_stok"),
-                                        rekomendasi.getInt("barang_harga"),
-                                        rekomendasi.getInt("barang_diskon"),
-                                        rekomendasi.getInt("barang_terjual"),
-                                        rekomendasi.getString("barang_gambar"),
-                                        rekomendasi.getString("barang_tanggal"),
-                                        rekomendasi.getString("barang_tanggal_diubah"),
-                                        rekomendasi.getString("barang_status")
-                                ));
-                            }
-                            recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );
-                            rekomendasiAdapter = new RekomendasiAdapter(context, barangRekomendasiItemList);
-                            recyleviewRekomendasi.setAdapter(rekomendasiAdapter);
-
-
-
-
-
-                        }else{
-                        }
-                    } catch (Exception e) {
-                       Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
+                    /**
+                     * SET DATA REKOMENDASI
+                     */
+                    final List<BarangItem> barangRekomendasiItemList = new ArrayList();
+                    JSONArray barangRekomendasiItemArray = req.getJSONArray("response");
+                    for(int a=0; a<barangRekomendasiItemArray.length() ;a++){
+                        JSONObject rekomendasi = barangRekomendasiItemArray.getJSONObject(a);
+                        barangRekomendasiItemList.add(new BarangItem(
+                                rekomendasi.getInt("barang_id"),
+                                rekomendasi.getString("barang_judul"),
+                                rekomendasi.getString("barang_katerangan"),
+                                rekomendasi.getString("barang_kategori"),
+                                rekomendasi.getString("barang_variasi"),
+                                rekomendasi.getString("barang_ukuran"),
+                                rekomendasi.getInt("barang_berat"),
+                                rekomendasi.getInt("barang_stok"),
+                                rekomendasi.getInt("barang_harga"),
+                                rekomendasi.getInt("barang_diskon"),
+                                rekomendasi.getInt("barang_terjual"),
+                                rekomendasi.getString("barang_gambar"),
+                                rekomendasi.getString("barang_tanggal"),
+                                rekomendasi.getString("barang_tanggal_diubah"),
+                                rekomendasi.getString("barang_status")
+                        ));
                     }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                });
-
-
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
+                    recyleviewRekomendasi.setLayoutManager( new GridLayoutManager(context, 2) );
+                    rekomendasiAdapter = new RekomendasiAdapter(context, barangRekomendasiItemList);
+                    recyleviewRekomendasi.setAdapter(rekomendasiAdapter);
 
 
 
-            }catch (Exception e){
-                e.printStackTrace();
+
+
+                }else{
+                }
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
+
             }
+        }, error -> {
+            dialog.dismiss();
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
+            Log.e("VOLLEY", error.toString());
+
+        });
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 
 

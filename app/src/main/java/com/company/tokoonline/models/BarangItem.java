@@ -8,6 +8,7 @@ public class BarangItem {
     public String barang_ukuran;
     public int barang_berat;
     public int barang_stok;
+    public int barang_beli;
     public int barang_harga;
     public int barang_diskon;
     public int barang_terjual;
@@ -16,6 +17,22 @@ public class BarangItem {
     public String barang_tanggal_diubah;
     public String barang_status;
     public int id;
+
+    public BarangItem(
+            int id,
+            String barang_judul,
+            String barang_gambar,
+            int barang_harga,
+            int barang_stok,
+            int barang_beli) {
+
+        this.id = id;
+        this.barang_judul = barang_judul;
+        this.barang_gambar = barang_gambar;
+        this.barang_harga = barang_harga;
+        this.barang_stok = barang_stok;
+        this.barang_beli = barang_beli;
+    }
 
     public BarangItem(
             int id,

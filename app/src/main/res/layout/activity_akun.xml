@@ -40,6 +40,29 @@
 
 
                 <ImageView
+                    android:id="@+id/actionCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/actionPesanan"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:id="@+id/actionPesanan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/activity_vertical_margin"
+                    app:srcCompat="@drawable/ic_baseline_event_note_24"
+                    app:tint="#FF5722" />
+
+                <ImageView
+                    android:visibility="gone"
                     android:id="@+id/actionEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,8 +89,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/actionBack"
                     android:fontFamily="sans-serif-light"
-                    android:text="Akun Pengguna"
+                    android:text="Akun"
                     android:textColor="#FF5722" />
 
 
@@ -82,8 +106,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <View
@@ -97,17 +120,70 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#f2f2f2"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="40dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="160dp"
+                        android:layout_height="160dp">
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/circle_shape"
+                            android:gravity="center_vertical|center_horizontal" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="125dp"
+                            android:layout_height="125dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:padding="1dp"
+                            android:scaleType="centerCrop"
+                            android:src="@null" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@drawable/circle"
+                            android:backgroundTint="#4CAF50"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_baseline_create_24"
+                            app:tint="#FFFFFF" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:background="#ffffff"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -275,6 +351,8 @@
                     android:orientation="vertical"
                     android:background="#ffffff"
                     android:layout_marginTop="8dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -538,33 +616,25 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/cart_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/actionLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="#F44336"
+                        android:text="Logout" />
 
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <View
-            style="@style/divider"
-            android:backgroundTint="#ddd" />
-
-        <LinearLayout
-            android:id="@+id/cart_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#ffffff"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/actionLogout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:text="Logout" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 

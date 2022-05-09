@@ -121,6 +121,11 @@ public class AkunActivity extends AppCompatActivity {
         });
 
 
+        findViewById(R.id.actionCart).setOnClickListener(v ->{
+
+            startActivity(new Intent(context, CartActivity.class));
+        });
+
         findViewById(R.id.actionLogout).setOnClickListener(v ->{
 
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -161,6 +166,11 @@ public class AkunActivity extends AppCompatActivity {
         });
 
 
+
+
+        findViewById(R.id.actionPesanan).setOnClickListener(v ->{
+            startActivity(new Intent(context, PesananActivity.class));
+        });
 
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);

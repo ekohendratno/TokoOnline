@@ -30,68 +30,33 @@
 
 
                 <ImageView
-                    android:id="@+id/admin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/cari"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_baseline_create_24"
-                    app:tint="#4CAF50" />
-
-                <ImageView
                     android:id="@+id/cari"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/pesanan"
+                    android:layout_toLeftOf="@+id/notif"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_baseline_search_24"
                     app:tint="#FF5722" />
 
                 <ImageView
-                    android:id="@+id/pesanan"
+                    android:id="@+id/notif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/akun"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_baseline_event_note_24"
-                    app:tint="#FF5722" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/akun"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
-                    app:tint="#FF5722" />
-
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/pesan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="@dimen/activity_vertical_margin"
-                    app:srcCompat="@drawable/ic_baseline_chat_24"
+                    app:srcCompat="@drawable/ic_baseline_notifications_none_24"
                     app:tint="#FF5722" />
 
                 <ImageView
                     android:id="@+id/akun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_baseline_person_24"
@@ -114,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/actionBack"
-                    android:fontFamily="sans-serif-black"
-                    android:text="BUTIK"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="SHOP"
                     android:textColor="#FF5722" />
 
 
@@ -127,7 +92,6 @@
 
 
         <com.google.android.material.tabs.TabLayout
-            android:visibility="gone"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -141,13 +105,13 @@
             android:background="#ffffff"
             android:elevation="0dp"
             app:tabGravity="center"
-            app:tabIconTint="#353535"
-            app:tabIndicatorColor="#353535"
+            app:tabIconTint="#FF5722"
+            app:tabIndicatorColor="#FF5722"
             app:tabIndicatorHeight="1dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="#353535"
+            app:tabSelectedTextColor="#FF5722"
             app:tabTextAppearance="@style/tab_text"
-            app:tabTextColor="#AAAAAA">
+            app:tabTextColor="#000">
 
 
             <com.google.android.material.tabs.TabItem
@@ -206,7 +170,7 @@
                     <include layout="@layout/layout_empty"/>
 
                     <LinearLayout
-                        android:id="@+id/layout_main"
+                        android:id="@+id/layout_main1"
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -217,7 +181,7 @@
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="120dp"
+                            android:minHeight="100dp"
                             app:slider_hideIndicators="false"
                             app:slider_animateIndicators="true"
                             app:slider_loopSlides="true"
@@ -265,6 +229,31 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_main2"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+
+                        <TextView
+                            android:id="@+id/layout_main2_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="DISKON"
+                            android:textColor="#FF5722"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyle_view3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                 </LinearLayout>

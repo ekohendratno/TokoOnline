@@ -45,8 +45,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.company.tokoonline.admin.AdminBarang;
-import com.company.tokoonline.admin.AdminDashboard;
 import com.company.tokoonline.config.AppController;
 import com.company.tokoonline.config.Config;
 import com.google.android.material.button.MaterialButton;
@@ -69,6 +67,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class LoginActivity extends AppCompatActivity{
     String TAG = "MainActivity";
@@ -87,17 +87,13 @@ public class LoginActivity extends AppCompatActivity{
 
             String level = sharedpreferences.getString("level", "");
 
-            if( level.equalsIgnoreCase("penjual") ){
-
-                Intent intent = new Intent(LoginActivity.this, AdminDashboard.class);
-                startActivity(intent);
-                finish();
-
-            }else{
+            if( level.equalsIgnoreCase("pembeli") ){
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }else{
+
 
             }
 
@@ -237,7 +233,7 @@ public class LoginActivity extends AppCompatActivity{
             }else if( TextUtils.isEmpty(user_alamat.getText().toString()) ){
                 Toast.makeText(LoginActivity.this,"Alamat kosong",Toast.LENGTH_LONG).show();
             }else{
-                new sendDataDaftar().execute();
+                sendDataDaftar();
             }
 
         });
@@ -340,7 +336,14 @@ public class LoginActivity extends AppCompatActivity{
                 editPassword.setEnabled(true);
             }
         }, error -> {
+
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
             Log.e("VOLLEY", error.toString());
+
             formLogin.setVisibility(View.VISIBLE);
             formLoginLoading.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
@@ -359,89 +362,72 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
-    private class sendDataDaftar extends AsyncTask<String, Void, Boolean> {
+    private void sendDataDaftar(){
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+        TextInputEditText user_email = findViewById(R.id.user_email);
+        TextInputEditText user_password = findViewById(R.id.user_password);
+        TextInputEditText user_nama = findViewById(R.id.user_nama);
+        AutoCompleteTextView user_jk = findViewById(R.id.user_jk);
+        TextInputEditText user_notelp = findViewById(R.id.user_notelp);
+        TextInputEditText user_alamat = findViewById(R.id.user_alamat);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.restapi + "/api/signup", response -> {
+            Log.e("VOLLEY", response);
             try {
 
-                RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+                final JSONObject req = new JSONObject(response);
 
-                TextInputEditText user_email = findViewById(R.id.user_email);
-                TextInputEditText user_password = findViewById(R.id.user_password);
-                TextInputEditText user_nama = findViewById(R.id.user_nama);
-                AutoCompleteTextView user_jk = findViewById(R.id.user_jk);
-                TextInputEditText user_notelp = findViewById(R.id.user_notelp);
-                TextInputEditText user_alamat = findViewById(R.id.user_alamat);
+                if( req.getBoolean("success") ) {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.restapi + "/api/signup", response -> {
-                    Log.e("VOLLEY", response);
-                    try {
+                    user_email.setText("");
+                    user_password.setText("");
+                    user_nama.setText("");
+                    user_jk.setText("",false);
+                    user_notelp.setText("");
+                    user_alamat.setText("");
 
-                        final JSONObject req = new JSONObject(response);
+                    Toast.makeText(LoginActivity.this,"Pendaftaran berhasil dikirim, silahkan login",Toast.LENGTH_LONG).show();
+                }
 
-                        if( req.getBoolean("success") ) {
+            } catch (Exception e) {
+                Log.e("VOLLEY","Authentication error: " + e.getMessage());
 
-                            user_email.setText("");
-                            user_password.setText("");
-                            user_nama.setText("");
-                            user_jk.setText("",false);
-                            user_notelp.setText("");
-                            user_alamat.setText("");
-
-                            Toast.makeText(LoginActivity.this,"Pendaftaran berhasil dikirim, silahkan login",Toast.LENGTH_LONG).show();
-                        }
-
-                    } catch (Exception e) {
-                        Log.e("VOLLEY","Authentication error: " + e.getMessage());
-
-                    }
-                }, error -> {
-                    Log.e("VOLLEY", error.toString());
-
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-
-                        Map<String, String> params = new HashMap<>();
-                        params.put("user_email", String.valueOf(user_email.getText().toString()));
-                        params.put("user_password", String.valueOf(user_password.getText().toString()));
-                        params.put("user_nama", String.valueOf(user_nama.getText().toString()));
-                        params.put("user_jk", String.valueOf(user_jk.getText().toString()));
-                        params.put("user_notelp", String.valueOf(user_notelp.getText().toString()));
-                        params.put("user_alamat", String.valueOf(user_alamat.getText().toString()));
-
-                        return params;
-                    }
-                };
-
-
-
-
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                requestQueue.add(stringRequest);
-
-
-
-            }catch (Exception e){
-                e.printStackTrace();
             }
+        }, error -> {
 
-            return true;
-        }
+            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Terjadi gangguan!")
+                    .setContentText("Mengalami gangguan ketika mengambil data!")
+                    .show();
+
+            Log.e("VOLLEY", error.toString());
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("user_email", String.valueOf(user_email.getText().toString()));
+                params.put("user_password", String.valueOf(user_password.getText().toString()));
+                params.put("user_nama", String.valueOf(user_nama.getText().toString()));
+                params.put("user_jk", String.valueOf(user_jk.getText().toString()));
+                params.put("user_notelp", String.valueOf(user_notelp.getText().toString()));
+                params.put("user_alamat", String.valueOf(user_alamat.getText().toString()));
+
+                return params;
+            }
+        };
 
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-        }
 
-        @Override
-        protected void onPreExecute() {
-        }
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 
 

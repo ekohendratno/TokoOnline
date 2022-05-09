@@ -33,6 +33,7 @@
         <activity android:name=".CheckOutActivity"/>
         <activity android:name=".CheckOutMultiActivity"/>
         <activity android:name=".PaymentActivity"/>
+        <activity android:name=".PaymentMultiActivity"/>
         <activity android:name=".KonfirmasiActivity"/>
         <activity android:name=".PesananActivity"/>
         <activity android:name=".PesananDetailActivity"/>
@@ -41,17 +42,6 @@
         <activity android:name=".PencarianActivity"/>
 
         <activity android:name=".AkunActivity"/>
-
-        <!--ADMIN-->
-
-
-        <activity android:name=".admin.AdminDashboard"/>
-        <activity android:name=".admin.AdminBarang"/>
-        <activity android:name=".admin.AdminKategori"/>
-        <activity android:name=".admin.AdminBank"/>
-        <activity android:name=".admin.AdminPesanan"/>
-        <activity android:name=".admin.AdminPesananDetail"/>
-
 
     </application>
 
